@@ -16,7 +16,6 @@ class Top_items_model extends CI_Model {
 											->get()
 											->row();
 		}
-		// OUT($topItems);
 		return $topItems;
 	}
 }

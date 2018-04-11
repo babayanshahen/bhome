@@ -140,14 +140,16 @@
 	                $("#content-all-statement").append(
 	                    value.content
 	                )
-
 	            });
+
+		        $(".pagination.pagination-circle").html('');
+		        $(".pagination.pagination-circle").html('<h1>asdasd</h1>');
 	        },
 	        error: function(jqXhr, textStatus, errorThrown) {
-	            alert(errorThrown);
+	            // alert(errorThrown);
 	        },
 	       	onload: function(){
-	        alert(45);
+	        	alert('onload');
 	        }
         });
 	});
