@@ -55,12 +55,13 @@
 								</div>
 							</div>
 						</div> -->
-						<!-- <div class="md-form">
+						<div class="md-form">
 							<i class="fa fa-globe ic-color prefix "></i>
 							<div class="form-row  checkbox text-center">
 									<?php drawRegion('state'); ?>
 							</div>
-						</div> -->
+						</div>
+						<!-- individual
 						<div class="md-form">
 							<div class="container-fluid">
 								<div class="row">
@@ -74,7 +75,7 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 						<div class="container btn-buttons">
 							<div class="row">
 								<div class="col-sm-6 text-center">

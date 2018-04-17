@@ -5,6 +5,7 @@ class Statements extends CI_Controller {
 
 	public function index($searchRes=false,$search =false,$word=false)
 	{
+
 		$this->load->model('statement_model');
 		$this->load->model("statement_images_model");
 		$this->load->model("top_items_model");
@@ -13,24 +14,74 @@ class Statements extends CI_Controller {
 		$page = $this->uri->segment(3,0);
 		$per_page = 12;
 		$topItems  = $this->top_items_model->getTopItems();
+		$where = array();
+		if( !empty($this->input->post()) ){
 
-		$statements = $this->statement_model->getStatementRecords('statements',$per_page,$page);
+			if( $this->input->post('state') !=0 ){
+				$where = array(
+					'state' 		=> $this->input->post('state'),
+				);
+			}
+			if( $this->input->post("sale-or-rent") == "sale" ){
+				$where["sale"] ='true';
+				$where["rent"] ='false';
+			}elseif($this->input->post("sale-or-rent") == "rent"){
+				$where["rent"] ='true' ;
+				$where["sale"] = 'false';
+			}
+			if( $this->input->post("individual-or-agency") == "individual" ){
+				$where["individual"] ='true';
+				$where["agency"] ='false';
+			}elseif($this->input->post("individual-or-agency") == "agency"){
+				$where["agency"] =	'true';
+				$where["individual"] = 'false';
+			}
+
+			if( !empty($this->input->post("price-from")) ){
+				$where["price >="] = $this->input->post("price-from") ;
+			}
+
+			if( !empty($this->input->post("price-from")) ){
+				// $where["price >="] = $this->input->post("price-from");
+				$where["price <="] = $this->input->post("price-to");
+			}
+
+			if( !empty($this->input->post("area-from")) ){
+				$where["area >="] = $this->input->post("area-from") ;
+			}
+
+			if( !empty($this->input->post("area-from")) ){
+				// $where["area >="] = $this->input->post("area-from");
+				$where["area <="] = $this->input->post("area-to");
+			}
+
+			if( !empty($this->input->post("valute")) ){
+				// $where["area >="] = $this->input->post("area-from");
+				$where["valute"] = (int)$this->input->post("valute");
+			}
+			// out($where);
+			// die();
+
+		}
+
+		$statements = $this->statement_model->getStatementRecords('statements',$per_page,$page,$where);
 		
 		if($searchRes  && $search)
 		{
-			$data['topItems'] = $topItems;
-			$data['statements'] = $searchRes;
+			$data['topItems'] 	= $topItems;
+			$data['statements']	= $searchRes;
 			// $page 		= $this->uri->segment(4,0);
 
 			$this->pagination->initialize($this->set_pagination_param($per_page,$this->statement_model->getSearchedStatementTotalRows($word),base_url('statements/searching/'.$word),4 ) );
 			$this->load->template('statements',$data);return ;
 			
 		}
-		$this->pagination->initialize($this->set_pagination_param($per_page,$this->statement_model->getStatementTotalRows(),base_url('statements/index'),3 ) );
+		$this->pagination->initialize($this->set_pagination_param($per_page,$this->statement_model->getStatementTotalRows($where),base_url('statements/index'),3 ) );
 		
 		$data = array(
-					'statements' 		=> $statements,
-					'topItems'			=> $topItems
+					'statements'	=> $statements,
+					'topItems'		=> $topItems,
+					'postItem'		=>	!empty($this->input->post())  ? $this->input->post()	: false 
 				);
 
 		$this->load->template('statements',$data);
@@ -61,6 +112,8 @@ class Statements extends CI_Controller {
 		$config['uri_segment'] = $segment;
 		$config['per_page'] = $per_page;
 		$config['total_rows'] = $total_rows;
+		$config['first_link'] = false;
+	$config['last_link'] = false;
 
 		$config['full_tag_open'] = "<nav aria-label='pagination example'>
 										<ul class='pagination pagination-circle pg-blue mb-0 justify-content-center'>";

@@ -6,16 +6,20 @@
                     <div class="module-inner">
                         <div class="side-bar">
                             <div class="user-info">
+                                <a href="<?php echo base_url('dashboard') ?>">
                                 <?php if(!is_null($user->avatar)): ?>
-                                <!-- <img class="img-profile img-circle img-responsive center-block hover" src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" alt="" title="Upload Your Image"> -->
+                                <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" alt="" title="Upload Your Image">
                                 <?php else: ?>
-                                <img class="img-profile img-circle img-responsive center-block hover" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="avatar">
+                                <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="avatar">
                                 <?php endif ?>
+                                </a>
                                 <!-- <input type="file" name="upload-photo" id="upload-avatar" style="display: none;" accept="image/x-png,image/jpeg, image/jpg"  >  -->
                                 <ul class="meta list list-unstyled m-top">
-                                    <li class="name">
-                                        <?php echo $user->full_name?>
-                                    </li>
+                                    <a href="<?php echo base_url('dashboard/settings')?>">
+                                        <li class="name">
+                                            <?php echo $user->full_name?>
+                                        </li>
+                                    </a>
                                 </ul>
                             </div>
                             <nav class="side-menu">
@@ -122,7 +126,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Մակերեսը(մ քառ.)</span>
                                         
-                                        <input id="msesasg" type="text" name="area" class="form-control" placeholder="Մ &sup2" value="<?php echo $EditStatementResult->area ?>">
+                                        <input id="msesasg" type="number" name="area" class="form-control" placeholder="Մ &sup2" value="<?php echo $EditStatementResult->area ?>">
                                     </div>
                                     <br>
                                     <div class="input-group">
@@ -174,8 +178,9 @@
                                                     <img src="<?php echo base_url('assets/img/valute/dollar.png')?>" width="15" heigth="20" id="valute-icon"/>
                                                 </span>
                                                 <select class="form-control" required="required" name="valute">
-                                                    <option value='usd' <?php echo $EditStatementResult->valute == 'usd' ?  "selected='selected'": "" ?> > USD</option>
-                                                    <option value='amd'<?php echo $EditStatementResult->valute == 'amd' ?  "selected='selected'": "" ?> > AMD</option>
+                                                    <option value='1' <?php echo $EditStatementResult->valute == '1' ?  "selected='selected'": "" ?> > USD</option>
+                                                    <option value='2'<?php echo $EditStatementResult->valute == '2' ?  "selected='selected'": "" ?> > AMD</option>
+                                                    <option value='3'<?php echo $EditStatementResult->valute == '3' ?  "selected='selected'": "" ?> > EURO</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -185,23 +190,29 @@
                                         <textarea type="text" class="form-control" name="description"  rows="5" cols="120" placeholder="Նկարագրություն"><?php echo $EditStatementResult->description ?></textarea>
                                     </div>
                                     <br>
-                                    <fieldset class="form-group" id="myinput">
-                                        <a href="javascript:void(0)"  class="btn btn-default upload_click">Upload Image</a>
-                                        <input type="file" id="pro-image-1" name="pro-image[]" multiple="multiple" style="display:none;" />
-                                    </fieldset>
+                                    <?php if (empty($EditStatementResult->id)): ?>
+                                        <fieldset class="form-group" id="myinput">
+                                            <!-- <input type="hidden" name="update" value="true" /> -->
+                                            <a href="javascript:void(0)"  class="btn btn-default upload_click">Upload Image</a>
+                                            <input type="file" id="pro-image-1" name="pro-image[]" multiple="multiple" style="display:none;" />
+                                        </fieldset>
+                                    <?php else: ?>
+                                        <fieldset class="form-group" id="myinput">
+                                            <a href="<?php echo base_url('dashboard/editPhoto/'.$EditStatementResult->id) ?>"  class="btn btn-default">Ավելացնել կամ փոփոխել նկար</a>
+                                        </fieldset>
+                                    <?php endif ?>
                                     <div class="preview-images-zone">
                                         <?php if(!is_null($EditStatementResult->id) && !empty($EditStatementResult->id)): ?>
                                             <?php foreach (glob( FCPATH.'assets/statements-img/user-'.thisUserId().'/'.$EditStatementResult->id.'/*.*') as $key => $image): ?>
-                                                <?php //out($EditStatementResult->images[$key]->key); ?>
+                                                <!-- onclick="deleteImage('<?php echo $EditStatementResult->images[$key]->key ?>',<?php echo  $EditStatementResult->id ?> , <?php echo thisUserId() ?>)" -->
                                                 <div class="preview-image preview-show-<?php echo $key+1 ?>">
-                                                    <div class="image-cancel" data-no="<?php echo $key+1 ?> " onclick="deleteImage('<?php echo $EditStatementResult->images[$key]->key ?>',<?php echo  $EditStatementResult->id ?> , <?php echo thisUserId() ?>)">x</div>
+                                                    <!-- <div class="image-cancel" data-no="<?php //echo $key+1 ?> " >x</div> -->
                                                     <div class="image-zone">
                                                         <img id="pro-img-<?php echo ($key+1) ?>" src="<?php echo base_url(removeFpath($image))?> ">
                                                         <input type="file" name="image-<?php echo ($key+1) ?>" style="display:none;" />
                                                     </div>
                                                 </div>
                                             <?php endforeach ?>
-                                            <!-- <input type="hidden" name="update" value="true" /> -->
                                         <?php endif; ?>
                                     </div>
                                     <br>

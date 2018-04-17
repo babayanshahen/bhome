@@ -46,6 +46,7 @@ if (!function_exists('drawImage')) {
         $CI =& get_instance();
         $CI->load->model('statement_images_model');
         $statement_images = $CI->statement_images_model->getImages($statement_id);
+        
         // out($statement_images);
         $content = "";
 
@@ -57,8 +58,6 @@ if (!function_exists('drawImage')) {
                             <img data-u='image' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg' />
                             <div data-u='thumb'>
                                 <img data-u='thumb' class='i' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg'  style='width: 95px;height: 48px;'/>
-                                <span class='ti'>Title</span><br />
-                                <span class='d'>Slide Description</span>
                             </div>
                         </div>";
         }
@@ -75,11 +74,11 @@ if (!function_exists('drawTopImage')) {
 }
 
 if (!function_exists('drawRegion')) {
-    function drawRegion($statementName='state',$class='' ,$selectedItem=null)
+    function drawRegion($statementName='state',$class='' ,$selectedItem=null,$required=false)
     {
         $drawRegionText = "";
         $drawRegionText = 
-            "<select class='form-control state ".$class."' name='".$statementName."' required>
+            "<select class='form-control state ".$class."' name='".$statementName."' ".$required.">
                                                 <option value=''>Բոլորը</option>
                                                 <optgroup label='Երևան'>
                                                     <option value='2'  ".selectOldValue(2,$selectedItem)." >Աջափնյակ</option>
@@ -234,7 +233,7 @@ if (!function_exists('drawSizeofFloor')) {
                     <option value='4'>4</option>
                     <option value='5'>5</option>                                                
                     <option value='6'>6</option>
-                    <option value='6'>6 և ավել</option>
+                    <option value='7'>6 և ավել</option>
                 </select>";
 
     }
@@ -251,7 +250,7 @@ if (!function_exists('drawFloorofBuilding')) {
                     <option value='4'>4</option>
                     <option value='5'>5</option>                                                
                     <option value='6'>6</option>
-                    <option value='6'>6 և ավել</option>
+                    <option value='7'>6 և ավել</option>
                 </select>";
 
     }
@@ -268,7 +267,7 @@ if (!function_exists('drawSizeOfRoom')) {
                     <option value='4'>4</option>
                     <option value='5'>5</option>                                                
                     <option value='6'>6</option>
-                    <option value='6'>6 և ավել</option>
+                    <option value='7'>6 և ավել</option>
                 </select>";
 
     }
@@ -278,7 +277,7 @@ if (!function_exists('drawTypeofValue')) {
     function drawTypeofValue($drawType,$class)
     {
         echo    "<select name='".$drawType."' class='form-control state ".$class."' required>
-                    <option value=''>Ամբողջը</option>
+                    <option value='0'>Ամբողջը</option>
                     <option value='1'>USD</option>                                                                            
                     <option value='2'>AMD</option>                                                                            
                     
@@ -315,9 +314,19 @@ if (!function_exists('drawKeywords')) {
 	                    Վաճառք
 	                </li>";
 	}
-
+    switch ($statement->valute) {
+        case '1':
+            $valute =  "USD";
+            break;
+        case '2':
+            $valute =  "AMD";
+            break;
+        case '3':
+            $valute =  "EURO";
+            break;
+    }
 		$text .= 	"<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
-                             $statement->price $statement->valute
+                             $statement->price  $valute
 	            	</li>";
 
 	if ( !(is_null($statement->address)) )

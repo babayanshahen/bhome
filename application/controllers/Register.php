@@ -2,11 +2,6 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Register extends CI_Controller {
-	// function __construct(){
-	// 	parent::__construct();
-	// }
-
-	
 	public function index()
 	{
 		$this->load->template("register");
@@ -40,16 +35,9 @@ class Register extends CI_Controller {
 	}
 
 	public function account(){
-        // $data = array();
-        // if($this->session->userdata('isUserLoggedIn')){
-        //     $data['user'] = $this->user->getRows(array('id'=>$this->session->userdata('userId')));
-        //     //load the view
-        //     $this->load->view('users/account', $data);
-        // }else{
-        //     redirect('users/login');
-        // }
+     
     }
-
+    
 	/*
      * User registration 
      */
@@ -82,8 +70,6 @@ class Register extends CI_Controller {
 	            	die('Some problems occured, please try again.');
 	            }
 	        }
-	        // echo validation_errors();
-	        // die();
         }
 
         $data['user'] = $userData;

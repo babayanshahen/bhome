@@ -14,10 +14,7 @@ border-radius: 5px 5px 0 0;
 .custom-container {
 padding: 2px 16px;
 }
-/*.container {
-position: relative;
-width: 50%;
-}*/
+
 .image {
 opacity: 1;
 display: block;
@@ -40,7 +37,7 @@ text-align: center;
 opacity: 0.3;
 }
 .profile-image:hover .middle {
-cursor: cell;
+cursor: pointer;
 opacity: 1;
 }
 .text {
@@ -58,16 +55,20 @@ padding: 5px ;
                     <div class="module-inner">
                         <div class="side-bar">
                             <div class="user-info">
+                                <a href="<?php echo base_url('dashboard') ?>">
                                 <?php if(!is_null($user->avatar)): ?>
-                                    <img class="img-profile img-circle img-responsive center-block hover" src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" alt="" title="Upload Your Image">
+                                    <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" alt="" title="Upload Your Image">
                                 <?php else: ?>
-                                    <img class="img-profile img-circle img-responsive center-block hover" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="avatar">
+                                    <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="avatar">
                                 <?php endif ?>
+                                </a>
                                 <!-- <input type="file" name="upload-photo" id="upload-avatar" style="display: none;" accept="image/x-png,image/jpeg, image/jpg"  >  -->
                                 <ul class="meta list list-unstyled m-top">
-                                    <li class="name">
-                                        <?php echo $user->full_name?>
-                                    </li>
+                                    <a href="<?php echo base_url('dashboard/settings') ?>">
+                                        <li class="name">
+                                                <?php echo $user->full_name?>
+                                        </li>
+                                    </a>
                                 </ul>
                             </div>
                             <nav class="side-menu">

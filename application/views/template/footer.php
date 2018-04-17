@@ -31,110 +31,71 @@
 <script type="text/javascript" src="<?php  echo base_url('assets/js/mdb.min.js')?>"></script>
 <script type="text/javascript" src="<?php  echo base_url('assets/js/myjs.js')?>"></script>
 <script type="text/javascript" src="<?php  echo base_url('assets/js/carusel.js')?>"></script>
-<script src='http://bhome.art/assets/js/jssor.slider-27.1.0.min.js' type='text/javascript'></script>
-					<script type='text/javascript' src='http://bhome.art/assets/js/sor.js'></script>
+<!-- <script src='http://bhome.art/assets/js/jssor.slider-27.1.0.min.js' type='text/javascript'></script> -->
+<!-- <script type='text/javascript' src='http://bhome.art/assets/js/sor.js'></script> -->
 <script>
 	$( ".target-change" ).change(function() {
-		let state =  $("select[name=state]").val();
-
-		// let individualValue =  $("#anId5").prop('checked');
-		// let agencyValue =  $("#anId6").prop('checked');
-
+		var state =  $("select[name=state]").val();
 		var individualValue =  false;
 		var agencyValue =  false;
 
-		// alert('ind before '+ $("#anId5").prop('checked'));
 		if( $("#anId5").prop('checked'))
 		{
-			// if(agencyValue){
-			// 	agencyValue = false;
-			// 	$("label[for=anId6]  span").removeClass('checked');
-			// }
-			// $("#anId6").prop('checked',false);
 				agencyValue =  false;
 				individualValue = true;
-
-				// $("#anId6").prop('checked',false);
 				$("label[for=anId5]  span").addClass('checked');
 				$("label[for=anId6]  span").removeClass('checked');
-
-			// alert("individualValue "+$("#anId5").prop('checked'))
-			// [value='Hot Fuzz']
-			// individualValue =false;
-			// $("#anId6 , .chk-span").removeClass('checked');
-			// $("#anId5").prop('checked',true);
-			// $("#anId6").prop('checked',false);
-			// alert('ind in '+ $("#anId5").prop('checked'));
-
 		}
 
 		if( $("#anId6").prop('checked') )
 		{
-			alert("agency")
-			// alert(individualValue);
-			// if(individualValue){
-				// $("#anId5").prop('checked',false);
 				agencyValue =  true;
 				individualValue = false;
-
-				// $("#anId5").prop('checked',false);
 				$("label[for=anId5]  span").removeClass('checked');
 				$("label[for=anId6]  span").addClass('checked');
-			// }
-			// alert("agency "+agencyValue)
-			// $("label[for=anId5]  span").removeClass('checked');
-			// if(individualValue){
-			// 	$("#anId5").prop('checked',false);
-			// }
-						// $("#anId6").prop('checked',true);
-			// $("#anId5").prop('checked',false);
+		}
+		var sale =  $("#anId7").prop('checked');
+		var rent =  $("#anId8").prop('checked');
+
+		var priceFrom =  $("input[name=price-from]").val();
+		var priceTo =  $("input[name=price-to]").val();
+
+		var areaFrom =  $("input[name=area-from]").val();
+		var areaTo =  $("input[name=area-to]").val();
+		
+		var kind_build =  $("select[name=kind_build]").val();
+		var type_build =  $("select[name=type_build]").val();
+
+		var size_room =  $("select[name=size_room]").val();
+		var floor =  $("select[name=floor]").val();
+		var size_floor =  $("select[name=size_floor]").val();
+		var valute =  $("select[name=valute]").val();
+
+		var data = {
+			'state': state,
+			'individual': individualValue,
+			'agency': agencyValue,
+			'sale': sale,
+			'rent': rent,
+			'price-from': priceFrom,
+			'price-to': priceTo,
+			'area-from': areaFrom,
+			'area-to': areaTo,
+			'type_build': type_build,
+			'kind_build': kind_build,
+			'size_room': size_room,
+			'floor': floor,
+			'size_floor': size_floor,
+			'valute': valute
 		}
 
-		
-		let sale =  $("#anId7").prop('checked');
-		let rent =  $("#anId8").prop('checked');
-
-		let priceFrom =  $("input[name=price-from]").val();
-		let priceTo =  $("input[name=price-to]").val();
-
-		let areaFrom =  $("input[name=area-from]").val();
-		let areaTo =  $("input[name=area-to]").val();
-		
-		let kind_build =  $("select[name=kind_build]").val();
-		let type_build =  $("select[name=type_build]").val();
-
-		let size_room =  $("select[name=size_room]").val();
-		let floor =  $("select[name=floor]").val();
-		let size_floor =  $("select[name=size_floor]").val();
-		let valute =  $("select[name=valute]").val();
-
-		// alert(individualValue+'  '+agencyValue);
         $.ajax({
 		    type: "POST",
             url: baseUrl+"main/getNewStatements",
 		    dataType: 'json',
-	        data: {
-	            'state': state,
-	            'individual': individualValue,
-	            'agency': agencyValue,
-	            'sale': sale,
-	            'rent': rent,
-	            'price-from': priceFrom,
-	            'price-to': priceTo,
-	            'area-from': areaFrom,
-	            'area-to': areaTo,
-	            'type_build': type_build,
-	            'kind_build': kind_build,
-	            'size_room': size_room,
-	            'floor': floor,
-	            'size_floor': size_floor,
-	            'valute': valute
-	        },
+	        data:data,
 		    // processData: false,
 	        success: function(statements) {
-	        	if(statements == ""){
-	        	}
-
 	            $("#content-all-statement").html('');
 	            $.each(statements, function(index, value) {
 	                $("#content-all-statement").append(
@@ -143,7 +104,28 @@
 	            });
 
 		        $(".pagination.pagination-circle").html('');
-		        $(".pagination.pagination-circle").html('<h1>asdasd</h1>');
+		        var _countNewStatements = statements[0].pagination;
+		        if(_countNewStatements > 12)
+		        {
+		    //     	if( (_countNewStatements/12) > 5){
+		    //     		$(".pagination.pagination-circle").append(
+				  //       	"<li class='page-item'><a onclick='alert(1)' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='1' rel='prev'>«</a></li>"
+						// );
+		    //     	}
+
+		        	for (var i = 0; i < (_countNewStatements/12); i++)
+		        	{
+				        $(".pagination.pagination-circle").append(
+				        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * i)+ ","+(i + 1)+" ) ' class='page-link pag-color waves-effect waves-effect'>"+(i + 1)+"</a></li>"
+						);
+		        	}
+		        	if( (_countNewStatements/12) > 5 ){
+		        		$(".pagination.pagination-circle").append(
+				        	"<li class='page-item'><a onclick='alert(4)' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='3' rel='next'>»</a></li>"
+						);
+		        	}
+		        }
+		        // $(".pagination.pagination-circle").html(value.pagination);
 	        },
 	        error: function(jqXhr, textStatus, errorThrown) {
 	            // alert(errorThrown);
@@ -153,9 +135,57 @@
 	        }
         });
 	});
+
+	function setActive(one,two){
+		return (one == two) ? 'pag-active' : 'pag-color';
+	}
+
+	function getNewStatements(data,per_page,page,currentPage){
+		$.ajax({
+		    type: "POST",
+            url: baseUrl+"main/getNewStatements/"+per_page+'/'+page+'/'+currentPage,
+		    dataType: 'json',
+	        data: data,
+		    // processData: false,
+		    success: function(newStatements){
+	            $("#content-all-statement").html('');
+
+	            $.each(newStatements, function(index, value) {
+	                $("#content-all-statement").append(
+	                    value.content
+	                )
+	            });
+
+	            $(".pagination.pagination-circle").html('');
+		        var _countNewStatements = newStatements[0].pagination;
+		        if(_countNewStatements > 12)
+		        {
+		        	if( (_countNewStatements/12) > 5 && currentPage != 1){
+		        		$(".pagination.pagination-circle").append(
+				        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * (currentPage-2))+ ","+(currentPage - 1)+" )' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='1' rel='prev'>«</a></li>"
+						);
+		        	}
+		        	for (var i = 0; i < (_countNewStatements/12); i++)
+		        	{
+				        $(".pagination.pagination-circle").append(
+				        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * i)+ ","+(i + 1)+" ) ' class='page-link "+setActive((i + 1),currentPage)+" waves-effect waves-effect'>"+(i + 1)+"</a></li>"
+						);
+		        	}
+		        	if( (_countNewStatements/12) > 5 ){
+		        		$(".pagination.pagination-circle").append(
+				        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * (currentPage))+ ","+(currentPage + 1)+" )' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='3' rel='next'>»</a></li>"
+						);
+		        	}
+		        }
+		    }
+	      
+        });
+
+	}
 	$("#organization-click").click(function() {
 		$('input:radio[value=organisation]').prop('checked', true);
 	});
+
 	$( "#individual-click" ).click(function() {
 		$('input:radio[value=individual]').prop('checked', true);
 	});

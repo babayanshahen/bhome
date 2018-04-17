@@ -3,7 +3,6 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header text-center">
-				<?php //echo md5("asdasd") ?>
 				<h4 class="modal-title w-100 font-weight-bold p2-color">Sign in</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
@@ -37,52 +36,41 @@
 		</div>
 	</div>
 </div>
-<?php
-	// $_token =  bin2hex(openssl_random_pseudo_bytes(16));
-	// $this->session->set_userdata("_token_login" ,$_token);
-?>
 <script>
-	$("#login").submit(function(event) {
-	    event.preventDefault();
+$("#login").submit(function(event) {
+    event.preventDefault();
+    var email = $("#defaultForm-email").val();
+    var password = $("#defaultForm-password").val();
+    $.ajax({ 
+        url: baseUrl+"register/tryLogin",
+        data: {
+        	'_email': email, 
+    		'_password': password,
+        },
+        type: "POST",
+        success: function(data) {
+        	var data  = JSON.parse(data);
+        	if(data != null  && data.length != "" && data.result ){
+				$('#spinner').show();
+				$('#load-message').hide();
+			let imageUrl = baseUrl+'assets/img/login/success.gif';
 
-	    var email = $("#defaultForm-email").val();
-	    var password = $("#defaultForm-password").val();
-
-	    $.ajax({ 
-	        url: baseUrl+"register/tryLogin",
-	        data: {
-	        	'_email': email, 
-        		'_password': password,
-	        },
-	        type: "POST",
-	        success: function(data) {
-	        	var data  = JSON.parse(data);
-	        	// console.log(data.length);
-	        	if(data != null  && data.length != "" && data.result ){
-					$('#spinner').show();
-					$('#load-message').hide();
-	        		// alert(454);
-	        		let imageUrl = baseUrl+'assets/img/login/success.gif';
-
-					window.setTimeout(function() {
-						$("#login-button").css("background-color","green");
-						$(".modal-body.mx-3").html('<img src="' + imageUrl + '" style="display:block;width:189px;margin:0 auto">');
-                	}, 500);
-					
-	                window.setTimeout(function() {
-						window.location.replace(baseUrl+'/dashboard');
-	                }, 3000	);
-	        	}else{
-	        		$("#defaultForm-password").val('');
-					$('#spinner').hide();
-					$('#load-message').show();
-					$('.modal-content').css("animation","shake 0.5s");
-					$("#login-button").css("background-color","red");
-	        	}
-	        	
-	            // alert("asd");
-	        }
-	    });
-	    // });
-	});
+				window.setTimeout(function() {
+					$("#login-button").css("background-color","green");
+					$(".modal-body.mx-3").html('<img src="' + imageUrl + '" style="display:block;width:189px;margin:0 auto">');
+				}, 500);
+				
+				window.setTimeout(function() {
+					window.location.replace(baseUrl+'/dashboard');
+                }, 3000	);
+        	}else{
+        		$("#defaultForm-password").val('');
+				$('#spinner').hide();
+				$('#load-message').show();
+				$('.modal-content').css("animation","shake 0.5s");
+				$("#login-button").css("background-color","red");
+        	}
+        }
+    });
+});
 </script>

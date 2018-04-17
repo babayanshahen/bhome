@@ -206,12 +206,15 @@ class Dashboard extends CI_Controller {
 
 	        $dataInfo = $this->upload->data();
 
-
-	    	$insertItems = array(
-	    						"statement_id" 	=>	$statemnetIsdertId,
-	    						// "src" 			=>	thisUserId().'_st_'.($i+1) ,
-	    						"key" 			=>	 $dataInfo['raw_name']
-	    					);
+	        if( isset($dataInfo['raw_name']) && !empty($dataInfo['raw_name']) )
+	        {
+		    	$insertItems = array(
+		    						"statement_id" 	=>	$statemnetIsdertId,
+		    						// "src" 			=>	thisUserId().'_st_'.($i+1) ,
+		    						"key" 			=>	 $dataInfo['raw_name']
+		    					);
+		    	$this->statement_model->setMainImage($statemnetIsdertId,array('main_image' =>$dataInfo['raw_name']));
+	        }
 
 	    	$this->statement_images_model->insert($insertItems);
 
@@ -230,22 +233,6 @@ class Dashboard extends CI_Controller {
 
 	    
 	    redirect('dashboard/upload');
-	}
-
-	private function set_upload_options($statementId=false)
-	{   
-		$path  = FCPATH.'assets/statements-img/user-'.thisUserId().'/'.$statementId;
-		echo $path;
-		
-	    if (!file_exists($path)) {
-		    mkdir($path, 0777, true);
-		}
-
-	    $config['upload_path'] 		= $path;
-	    $config['allowed_types'] 	= 'jpg';
-    	$config['overwrite']    	= FALSE;
-    	$config['encrypt_name'] = TRUE;
-	    return $config;
 	}
 
 	private  function is_dir_empty($dir)
@@ -323,7 +310,8 @@ class Dashboard extends CI_Controller {
         {
 	        $vars['avatar'] = 'avatar_user_'.thisUserId();
         }
-
+        // out($vars);
+        // die();
 		$this->users_model->updateUser($vars);
 		redirect('dashboard/settings');
 	}
@@ -360,5 +348,106 @@ class Dashboard extends CI_Controller {
 		// 		unlink($file); // delete file
 		// 		//echo $file.'file deleted';
 		// 	} 
+	}
+
+	public function editPhoto($id)
+	{
+		$this->load->model('statement_images_model');
+		$this->load->model('statement_model');
+		$this->load->model('users_model');
+
+		$data = array(
+						"statement"	=>	$this->statement_model->getStatements($id),
+						"user" 			=> 	$this->users_model->getUser( UserDetails()->email ),
+						"images" 		=>	$this->statement_images_model->getImages($id),
+						"statement_id" 	=> $id
+					);
+
+		$this->load->dashboard('edit-photo',$data);
+	}
+
+	private function set_upload_options($statementId=false)
+	{   
+		$path  = FCPATH.'assets/statements-img/user-'.thisUserId().'/'.$statementId;
+		
+	    if (!file_exists($path)) {
+		    mkdir($path, 0777, true);
+		}
+
+	    $config['upload_path'] 		= $path;
+	    $config['allowed_types'] 	= 'jpg';
+    	$config['overwrite']    	= FALSE;
+    	$config['encrypt_name'] = TRUE;
+	    return $config;
+	}
+
+	public function uploadNewPhoto()
+	{
+
+		$this->load->library('upload');
+		$this->load->model('statement_model');
+		$this->load->model('statement_images_model');
+		
+
+		$dataInfo = array();
+		$files = $_FILES;
+		$cpt = count($_FILES['pro-image']['name'])-1;
+		$statement_id = $this->input->post('statement_id');
+
+		for($i=0; $i<$cpt; $i++)
+		{
+			$_FILES['pro-image']['name']= $files['pro-image']['name'][$i];
+			$_FILES['pro-image']['type']= $files['pro-image']['type'][$i];
+			$_FILES['pro-image']['tmp_name']= $files['pro-image']['tmp_name'][$i];
+			$_FILES['pro-image']['error']= $files['pro-image']['error'][$i];
+			$_FILES['pro-image']['size']= $files['pro-image']['size'][$i];    
+
+	        $this->upload->initialize($this->set_upload_options($statement_id));
+	        $this->upload->do_upload('pro-image');
+
+	        $dataInfo = $this->upload->data();
+
+	        if( isset($dataInfo['raw_name']) && !empty($dataInfo['raw_name']) )
+	        {
+		    	$insertItems = array(
+		    						"statement_id" 	=>	$statement_id,
+		    						"key" 			=>	 $dataInfo['raw_name']
+		    					);
+		    	// $this->statement_model->setMainImage($statement_id,array('main_image' =>$dataInfo['raw_name']));
+	    		$this->statement_images_model->insert($insertItems);
+	        }
+	    }
+	    redirect('dashboard/editPhoto/'.$statement_id);
+	    die();
+		return;
+
+	}
+	public function setMainImage($_imageKey=false,$_statementId=false,$_userId=false)
+	{
+		$this->load->model('statement_model');
+
+
+		// $file = fopen(FCPATH.'assets/statements-img/user-'.thisUserId().'/'.$_statementId.'/'.$_imageKey.'.jpg' ,"r");
+		// echo FCPATH.'assets/statements-img/user-'.thisUserId().'/'.$_statementId.'/'.$_imageKey.'.jpg';
+		// echo fread($file,"10");
+		// echo $file;
+		 // $file = fopen($filename, "c");
+		  // fseek($file, -3, SEEK_END);
+		  // fwrite($file, "whatever you want to write");
+		  // fclose($file);
+
+		// out($file);
+		// die();
+		if($_imageKey){
+			$update = array(
+				"main_image"	=> $_imageKey
+			);
+
+			if( $this->statement_model->changeMainImage($_statementId,$update) ){
+				echo  json_encode(array("status" => true) );
+			}else{
+				echo  json_encode(array("status" => false) );
+			}
+		}
 	}
 }

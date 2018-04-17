@@ -455,6 +455,35 @@ body{
 .preview-image:hover > .image-cancel {
     display: block;
 }
+/*  */
+.preview-images-zone > .preview-image > .image-default {
+    font-size: 15px;
+    position: absolute;
+    top: 63px;
+    right: 0;
+    font-weight: bold;
+    margin-right: 10px;
+    cursor: pointer;
+    display: none;
+    z-index: 100;
+}
+
+.preview-images-zone > .preview-image > .image-default {
+    font-size: 16px;
+    position: absolute;
+    top: 63px;
+    right: 0;
+    font-weight: bold;
+    margin-right: 10px;
+    cursor: pointer;
+    display: none;
+    z-index: 100;
+}
+
+.preview-image:hover > .image-default{
+    display: block;
+}
+/*  */
 .ui-sortable-helper {
     width: 90px !important;
     height: 90px !important;

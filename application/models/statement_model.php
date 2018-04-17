@@ -2,9 +2,10 @@
 class Statement_model extends CI_Model {
 	public $table = "statements";
 
-	public function getStatementTotalRows()
+	public function getStatementTotalRows($where)
 	{
 		return $this->db->from($this->table)
+			->where($where)
 			->get()
 			->num_rows();
 
@@ -21,14 +22,14 @@ class Statement_model extends CI_Model {
 
 	}
 
-	public function getStatementRecords($table=false,$limit=false,$start=false){
+	public function getStatementRecords($table=false,$limit=false,$start=false,$where=array()){
 
 		$this->db->limit($limit,$start);
 		$statements = $this->db
 					->from("$table")
+					->where($where)
 					->get()
 					->result();
-
 		foreach ($statements as $statement ) {
 			$statement->images = $this->db
 					->from("statement-images")
@@ -83,7 +84,180 @@ class Statement_model extends CI_Model {
 
 	}
 
-	public function filterStatements($where=false)
+	public function getStatements($id=false)
+	{
+		return $this->db
+					->from("$this->table")
+					->where(
+						array(
+							'id' => (int)$id
+						)
+					)
+					->get()
+					->row();
+
+	}
+
+	public function filterStatements($where=false,$limit=false,$start=false)
+	{
+
+		if($where['state'] != 0 )
+		{
+			$filter["state"] = $where['state'];
+		}
+		
+		/*start*/
+		if($where['individual'] == 'true')
+		{
+			$filter["individual"] = $where['individual'];
+		}
+
+		if($where['agency'] == 'true')
+		{
+			$filter["agency"] = $where['agency'];
+		}
+
+		if($where['sale'] == 'true')
+		{
+			$filter["sale"] = $where['sale'];
+		}
+
+		if($where['rent'] == 'true')
+		{
+			$filter["rent"] = $where['rent'];
+		}
+		/*end*/
+
+		/*start*/
+		if((int)$where['price-from'] !=0 )
+		{
+			$whereText = $where['price-from'];
+			$filter["price >="] = " $whereText ";
+		}
+		if((int)$where['price-to'] !=0 )
+		{
+			$whereText = $where['price-to'];
+			$filter["price <="] = " $whereText ";
+		}
+		/*end*/
+
+		/*start*/
+		if((int)$where['area-from'] !=0 )
+		{
+			$whereText = $where['area-from'];
+			$filter["area >="] = " $whereText ";
+		}
+		if((int)$where['area-to'] !=0 )
+		{
+			$whereText = $where['area-to'];
+			$filter["area <="] = " $whereText ";
+		}
+		/*end*/
+
+		if((int)$where['type_build'] != 0 )
+		{
+			$filter["type_build"] = $where['type_build'];
+		}
+
+		if((int)$where['kind_build'] != 0 )
+		{
+			$filter["kind_build"] = $where['kind_build'];
+		}
+
+		if((int)$where['size_room'] != 0 )
+		{
+			if((int)$where['size_room'] > 6)
+			{
+				$filter["size_room ="] = '7';
+			}else{
+				$filter["size_room"] = $where['size_room'];
+
+			}
+		}
+
+		if((int)$where['floor'] != 0 )
+		{
+			if((int)$where['floor'] > 6)
+			{
+				$filter["floor ="] = '7';
+			}else{
+				$filter["floor"] = $where['floor'];
+
+			}
+		}
+
+		if((int)$where['size_floor'] != 0 )
+		{
+			if((int)$where['size_floor'] > 6)
+			{
+				$filter["size_floor = "] = '7';
+			}else{
+				$filter["size_floor"] = $where['size_floor'];
+
+			}
+		}
+
+		if((int)$where['valute'] != 0 )
+		{
+			$filter["valute"] = $where['valute'];
+		}
+
+		if(isset($filter)){
+			$this->db->limit($limit,$start);
+			$statements = $this->db
+							->from('statements')
+							->where($filter)
+							->get()
+							->result();
+		}else{
+			$this->db->limit($limit,$start);
+			$statements = $this->db
+							->from('statements')
+							->get()
+							->result();
+		}
+		// out($this->db->last_query());
+			foreach ($statements as $statement ) {
+				$statement->images = $this->db
+						->from("statement-images")
+						->where(
+							array(
+								'statement_id' => $statement->id
+							)
+						)
+						->get()
+						->result();
+				$statement->state = $this->db->from("states")
+											->where(
+												array(
+													'value' => (int)$statement->state
+												)
+											)
+											->get()
+											->row();
+				$statement->type_build = $this->db->from("type_builds")
+											->where(
+												array(
+													'id' => (int)$statement->type_build
+												)
+											)
+											->get()
+											->row();
+				$statement->kind_build = $this->db->from("kind_builds")
+											->where(
+												array(
+													'id' => (int)$statement->kind_build
+												)
+											)
+											->get()
+											->row();
+
+			}
+			return $statements;
+
+	}
+
+	public function countNewstatements($where=false)
 	{
 
 		if($where['state'] != 0 )
@@ -148,60 +322,53 @@ class Statement_model extends CI_Model {
 			$filter["kind_build"] = $where['kind_build'];
 		}
 
-		if((int)$where['valute'] != 0 )
+		if((int)$where['size_room'] != 0 )
 		{
-			$filter["valute"] = $where['valute'];
+			if((int)$where['size_room'] > 6)
+			{
+				$filter["size_room ="] = '7';
+			}else{
+				$filter["size_room"] = $where['size_room'];
+
+			}
 		}
-		if(isset($filter)){
+
+		if((int)$where['floor'] != 0 )
+		{
+			if((int)$where['floor'] > 6)
+			{
+				$filter["floor ="] = '7';
+			}else{
+				$filter["floor"] = $where['floor'];
+
+			}
+		}
+
+		if((int)$where['size_floor'] != 0 )
+		{
+			if((int)$where['size_floor'] > 6)
+			{
+				$filter["size_floor = "] = '7';
+			}else{
+				$filter["size_floor"] = $where['size_floor'];
+
+			}
+		}
+
+		if(isset($filter))
+		{
 			$statements = $this->db
 							->from('statements')
 							->where($filter)
 							->get()
-							->result();
+							->num_rows();
 		}else{
 			$statements = $this->db
 							->from('statements')
 							->get()
-							->result();
+							->num_rows();
 		}
-
-			foreach ($statements as $statement ) {
-				$statement->images = $this->db
-						->from("statement-images")
-						->where(
-							array(
-								'statement_id' => $statement->id
-							)
-						)
-						->get()
-						->result();
-				$statement->state = $this->db->from("states")
-											->where(
-												array(
-													'value' => (int)$statement->state
-												)
-											)
-											->get()
-											->row();
-				$statement->type_build = $this->db->from("type_builds")
-											->where(
-												array(
-													'id' => (int)$statement->type_build
-												)
-											)
-											->get()
-											->row();
-				$statement->kind_build = $this->db->from("kind_builds")
-											->where(
-												array(
-													'id' => (int)$statement->kind_build
-												)
-											)
-											->get()
-											->row();
-
-			}
-			return $statements;
+		return $statements;
 
 	}
 
@@ -283,6 +450,36 @@ class Statement_model extends CI_Model {
 
 		return $searchStatements;
 		die("permission");
+	}
+	public function setMainImage($id,$data)
+	{
+		$statement = $this->db->from($this->table)
+			->where(
+					array(
+						'id' => $id
+					)
+				)
+			->get()
+			->row();
+		if(is_null($statement->main_image))
+		{
+			$this->db->where('id', $id);
+			$this->db->update($this->table, $data);
+		}
+	}
+
+	public function changeMainImage($id,$data)
+	{
+		$statement = $this->db->from($this->table)
+			->where(
+					array(
+						'id' => $id
+					)
+				)
+			->get()
+			->row();
+			$this->db->where('id', $id);
+			return $this->db->update($this->table, $data);
 	}
 
 }

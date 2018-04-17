@@ -27,11 +27,16 @@ class Main extends CI_Controller {
 		echo json_encode($this->statement_images_model->getImages($id));
 	}
 
-	public function getNewStatements(){
+	public function getNewStatements($per_page=false,$page=false,$currentPage=false)
+	{
 			$this->load->model('statement_model');
+			$this->load->library('pagination');
 
+			$per_page = 12;
 			$filter = $this->input->post();
-			$results  = $this->statement_model->filterStatements($filter);
+			$results  = $this->statement_model->filterStatements($filter,$per_page,$page);
+			$countNewstatements  = $this->statement_model->countNewstatements($filter);
+
 			if($results){
 				foreach ($results as $result)
 				{
@@ -43,7 +48,7 @@ class Main extends CI_Controller {
 					$result->content = 	"<div class='col-6 col-sm-3'>".
 											"<div class='card mb-4'>".
 												"<div class='view overlay'>".
-													"<img class='img-fluid' src='".base_url('assets/statements-img/user-').$result->user_id.'/'.$result->id.'/'.$result->main_image."' alt='".$result->user_id."'>".
+													"<img class='img-fluid' src='".base_url('assets/statements-img/user-').$result->user_id.'/'.$result->id.'/'.$result->main_image.".jpg' alt='".$result->name."'>".
 													"<div class='mask rgba-white-slight' data-toggle='modal' data-target='#exampleModal-".(int)$result->id."'>".
 													
 													"</div>".
@@ -60,10 +65,19 @@ class Main extends CI_Controller {
 																				"statement_user_id"	=> $result->user_id
 																				),true
 					);
+
+					$result->pagination 	= $countNewstatements ;
+					$result->currentPage 	= $currentPage;
 				}
+
 				
 			}
 			echo json_encode($results);
 		
+	}
+
+	public function createPagination()
+	{
+			
 	}
 }

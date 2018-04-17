@@ -26,7 +26,7 @@
                         <div class="module-inner">
                             <div class="side-bar">
                                <!--  <div class="user-info">
-                                     <img class="img-profile img-circle img-responsive center-block hover" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="" title="Upload Your Image" onclick="$('#upload-avatar').trigger('click');">
+                                     <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="" title="Upload Your Image" onclick="$('#upload-avatar').trigger('click');">
 
                                     <input type="file" name="upload-photo" id="upload-avatar" style="display: none;" accept="image/x-png,image/jpeg, image/jpg"  > 
 
@@ -36,19 +36,23 @@
                                         </li>
                                     </ul>
                                 </div> -->
-                                <div class="user-info">
-                                    <?php if(!is_null($user->avatar)): ?>
-                                    <img class="img-profile img-circle img-responsive center-block hover" src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" alt="" title="Upload Your Image">
-                                    <?php else: ?>
-                                    <img class="img-profile img-circle img-responsive center-block hover" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="avatar">
-                                    <?php endif ?>
-                                    <!-- <input type="file" name="upload-photo" id="upload-avatar" style="display: none;" accept="image/x-png,image/jpeg, image/jpg"  >  -->
-                                    <ul class="meta list list-unstyled m-top">
-                                        <li class="name">
-                                            <?php echo $user->full_name?>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    <div class="user-info">
+                                    <a href="<?php echo base_url('dashboard') ?>">
+                                        <?php if(!is_null($user->avatar)): ?>
+                                        <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" alt="" title="Upload Your Image">
+                                        <?php else: ?>
+                                        <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="avatar">
+                                        <?php endif ?>
+                                    </a>
+                                        <!-- <input type="file" name="upload-photo" id="upload-avatar" style="display: none;" accept="image/x-png,image/jpeg, image/jpg"  >  -->
+                                    <a href="<?php echo base_url('dashboard/settings') ?>">
+                                        <ul class="meta list list-unstyled m-top">
+                                            <li class="name">
+                                                <?php echo $user->full_name?>
+                                            </li>
+                                        </ul>
+                                    </a>
+                                    </div>
                                 <nav class="side-menu">
                                     <ul class="nav">
                                         <li>
@@ -79,7 +83,7 @@
                                                 <?php foreach ($statements as $statement): ?>
                                                     <div class="col-md-4" onclick="statementEdit( $(this).attr('data-statement-id') )" data-statement-id="<?php echo  $statement->id ?>">
                                                         <div class="custom-card">
-                                                            <img src="<?php echo base_url('assets/statements-img/user-').$statement->user_id.'/'.$statement->id.'/'.$statement->main_image?>" alt="Avatar" style="width:100%">
+                                                            <img src="<?php echo base_url('assets/statements-img/user-').$statement->user_id.'/'.$statement->id.'/'.$statement->main_image?>.jpg" alt="Avatar" style="width:100%">
                                                             <div class="custom-container">
                                                                 <h4><b><?php echo  cutString($statement->name,28) ?></b></h4>
                                                                 <p><?php echo cutString($statement->description , 50) ?></p>
@@ -87,6 +91,8 @@
                                                         </div>
                                                     </div>
                                                 <?php endforeach ?>
+                                            <?php else: ?>
+                                                Դուք դեռ չունեք հայտարարություն ձեր անձնական էջում <a href="<?php echo base_url('dashboard/upload')?>">Ավելացնել հիմա </a>
                                             <?php endif ?>
                                             </div>
                                         </div>

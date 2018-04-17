@@ -30,7 +30,6 @@
 							        }
 							    };
 							    var jssor_1_slider = new $JssorSlider$("jssor_<?php echo (int)$statement_id?>", jssor_1_options);
-							    /*#region responsive code begin*/
 							    var MAX_WIDTH = 980;
 
 							    function ScaleSlider() {
@@ -47,20 +46,18 @@
 							    $Jssor$.$AddEvent(window, "load", ScaleSlider);
 							    $Jssor$.$AddEvent(window, "resize", ScaleSlider);
 							    $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
-							    /*#endregion responsive code end*/
 							};
 					</script>
 					
 					
 					<div id="jssor_<?php echo (int)$statement_id?>" style="position:relative;margin:0 auto;top:0px;left:-15px;width:980px;height:380px;overflow:hidden;visibility:hidden;right: -15px;">
-						<!-- Loading Screen -->
 						<div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
 							<img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<?php base_url('assets/img/spin.svg') ?>" />
 						</div>
 						<div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:380px;overflow:hidden;">
 							<?php drawImage($statement_id,$statement_user_id) ?>
 						</div>
-						<div data-u="thumbnavigator" class="jssort121" style="position:absolute;left:0px;top:0px;width:268px;height:380px;overflow:hidden;cursor:default;" data-autocenter="2" data-scale-left="0.75">
+						<div data-u="thumbnavigator" class="jssort121" style="position:absolute;left:0px;top:0px;width:120px;height:380px;overflow:hidden;cursor:default;" data-autocenter="2" data-scale-left="0.75">
 							<div data-u="slides">
 								<div data-u="prototype" class="p" style="width:268px;height:68px;">
 									<div data-u="thumbnailtemplate" class="t"></div>
@@ -87,13 +84,23 @@
 						<div class="container">
 							<?php echo $statement->description ?>
 						</div>
+						<button type="button" class="btn btn-secondary" >
+							<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_1 ?>
+						</button>
+						<?php if (!is_null($statement->mobile_number_2) && !empty($statement->mobile_number_2) ): ?>
+							<button type="button" class="btn btn-secondary" >
+								<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_2 ?>
+							</button>
+						<?php endif ?>
+						<?php if (!is_null($statement->mobile_number_3) && !empty($statement->mobile_number_3) ): ?>
+							<button type="button" class="btn btn-secondary" >
+								<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_3 ?>
+							</button>
+						<?php endif ?>
 
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" >
-					<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_1 ?>
-				</button>
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
 			</div>
 		</div>
