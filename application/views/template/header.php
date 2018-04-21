@@ -16,11 +16,11 @@
 			baseUrl = "<?php echo base_url();?>";
 		</script>
 		<header>
-			<nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolling-navbar">
+			<nav class="navbar navbar-expand-lg navbar-dark fixed-top top-nav-collapse">
 				<div class="container">
 					<!-- navbar -->
 					<a class="navbar-brand" href="<?php echo base_url()?>">
-						<img src="<?php echo base_url('assets/img/logo.png') ?>" class="img-fluid pos-a" width="32">
+						<img src="<?php echo base_url('assets/img/logo.png') ?>" class="img-fluid pos-a" width="32" title="Գլխավոր Էջ">
 					</a>
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-7" aria-controls="navbarSupportedContent-7" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -28,16 +28,13 @@
 					<div class="collapse navbar-collapse" id="navbarSupportedContent-7">
 						<ul class="navbar-nav mr-auto">
 							<li class="nav-item">
-								<a class="nav-link" href="<?php echo base_url()?>">HOME
+								<a class="nav-link" href="<?php echo base_url('statements')?>" title="Հայտարարություններ">Հայտարարություններ
 									<span class="sr-only">(current)</span>
 								</a>
 							</li>
 							<?php if (isUserLoggedIn()): ?>
-								<!-- <li class="nav-item">
-									<a class="nav-link" href="<?php echo  base_url('dashboard/logout')?>">LOG OUT</a>
-								</li> -->
 								<li class="nav-item">
-									<a class="nav-link" href="<?php echo  base_url('dashboard')?>">Իմ Էջ</a>
+									<a class="nav-link" href="<?php echo  base_url('dashboard')?>" title="Իմ Էջ">Իմ Էջ</a>
 								</li>
 							<?php else: ?>
 								<li class="nav-item">
@@ -50,9 +47,11 @@
 						</ul>
 						<form action="<?php echo base_url('statements/searching')?>" method="POST">
 							<div class="md-form mt-0">
-								<input class="form-control mr-sm-2" type="search" placeholder="Search" name="search" />
+								<input class="form-control mr-sm-2" type="search" placeholder="Որոնել" name="search" />
 							</div>
 						</form>
 					</div>
 				</div>
 			</nav>
+			<script type="text/javascript" src="<?php echo base_url('assets/js/jssor.slider-27.1.0.min.js') ?>"></script>
+			<script type="text/javascript" src="<?php echo base_url('assets/js/sor.js')?>"></script>

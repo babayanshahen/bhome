@@ -113,7 +113,7 @@ class Statements extends CI_Controller {
 		$config['per_page'] = $per_page;
 		$config['total_rows'] = $total_rows;
 		$config['first_link'] = false;
-	$config['last_link'] = false;
+		$config['last_link'] = false;
 
 		$config['full_tag_open'] = "<nav aria-label='pagination example'>
 										<ul class='pagination pagination-circle pg-blue mb-0 justify-content-center'>";

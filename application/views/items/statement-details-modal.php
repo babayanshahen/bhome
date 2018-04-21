@@ -2,18 +2,15 @@
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel"><?php echo $statement->name ?></h5>
+				<h5 class="modal-title p2-color" id="exampleModalLabel"><?php echo $statement->name ?></h5>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
 			<div class="modal-body">
 				<div class="container">
-					<script src="<?php echo base_url('assets/js/jssor.slider-27.1.0.min.js') ?>" type="text/javascript"></script>
-					<script type="text/javascript" src="<?php  echo base_url('assets/js/sor.js')?>"></script>
 					<script>
 							jssor_1_slider_init = function() {
-
 							    var jssor_1_options = {
 							        $AutoPlay: 1,
 							        $SlideshowOptions: {
@@ -84,16 +81,16 @@
 						<div class="container">
 							<?php echo $statement->description ?>
 						</div>
-						<button type="button" class="btn btn-secondary" >
+						<button type="button" class="btn bt-color1 phone-number" >
 							<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_1 ?>
 						</button>
 						<?php if (!is_null($statement->mobile_number_2) && !empty($statement->mobile_number_2) ): ?>
-							<button type="button" class="btn btn-secondary" >
+							<button type="button" class="btn bt-color1 phone-number" >
 								<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_2 ?>
 							</button>
 						<?php endif ?>
 						<?php if (!is_null($statement->mobile_number_3) && !empty($statement->mobile_number_3) ): ?>
-							<button type="button" class="btn btn-secondary" >
+							<button type="button" class="btn bt-color1 phone-number" >
 								<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_3 ?>
 							</button>
 						<?php endif ?>
@@ -101,7 +98,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+				<button type="button" class="btn bt-color1" data-dismiss="modal">Փակել</button>
 			</div>
 		</div>
 	</div>

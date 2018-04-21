@@ -33,33 +33,22 @@ padding: 2px 16px;
                             </div> -->
                             <div class="user-info">
                                 <?php if(!is_null($user->avatar)): ?>
+                                <a href="<?php echo base_url('dashboard')?>">
                                 <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" alt="" title="Upload Your Image">
                                 <?php else: ?>
                                 <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="avatar">
+                                </a>
                                 <?php endif ?>
                                 <!-- <input type="file" name="upload-photo" id="upload-avatar" style="display: none;" accept="image/x-png,image/jpeg, image/jpg"  >  -->
                                 <ul class="meta list list-unstyled m-top">
-                                    <li class="name">
-                                        <?php echo $user->full_name?>
-                                    </li>
+                                    <a href="<?php echo base_url('dashboard/settings')?>">
+                                        <li class="name">
+                                            <?php echo $user->full_name?>
+                                        </li>
+                                    </a>
                                 </ul>
                             </div>
-                            <nav class="side-menu">
-                                <ul class="nav">
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/upload') ?>"><span class="fa fa-plus"></span> Upload New Item</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="<?php echo base_url('dashboard') ?>"><span class="fa fa-user"></span> Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/settings') ?>"><span class="fa fa-cog"></span> Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/logout') ?>"><span class="fa fa-sign-out"></span> Logout</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            <?php $this->load->view('dashboard-template/dashboard-side-bar') ?>
                         </div>
                         <div class="content-panel">
                             <div class="content-header-wrapper">
@@ -103,19 +92,19 @@ padding: 2px 16px;
     </div>
 </div>
 <script>
-// function newImage(){
-//     var preview = $(".image.img-responsive.img-circle");
-//     var file = document.querySelector('input[type=file]').files[0];
-//     var reader = new FileReader();
+function newImage(){
+    var preview = $(".image.img-responsive.img-circle");
+    var file = document.querySelector('input[type=file]').files[0];
+    var reader = new FileReader();
 
-//     reader.addEventListener("load", function() {
-//         $(".image.img-responsive.img-circle").attr("src", reader.result);
-//     }, false);
+    reader.addEventListener("load", function() {
+        $(".image.img-responsive.img-circle").attr("src", reader.result);
+    }, false);
 
-//     if (file) {
-//         reader.readAsDataURL(file);
-//     }
-// }
+    if (file) {
+        reader.readAsDataURL(file);
+    }
+}
 
 $(function() {
     $('.image-default.set-main').click(function(e) {

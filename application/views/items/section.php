@@ -16,22 +16,22 @@
 					<div class="container" style="opacity: 0.85; background-color: white;">
 						<p class="h4 text-center py-4  p-0-b p2-color ">Հայտարարության տեսակը</p>
 						<form role="form" action="<?php echo base_url('statements')?>" method="POST">
-							<div class="btn-group checkbox" data-toggle="buttons" style="display: grid;grid-template-columns: 16em 16em;">
-									<label class="btn btn-default form-check-label">
+							<div class="btn-group checkbox" data-toggle="buttons" style="display: grid;grid-template-columns: 16fr 16fr;">
+									<label class="btn bt-color1 form-check-label">
 										<input class="form-check-input" type="radio" name="individual-or-agency" autocomplete="off" style="display: none;" value="individual"> Անհատական
 									</label>
 									
-									<label class="btn btn-default form-check-label">
+									<label class="btn bt-color1 form-check-label">
 										<input class="form-check-input" type="radio" name="individual-or-agency" autocomplete="off"  style="display: none;" value="agency"> Գործակալություն
 									</label>
 							</div>
 							<hr>
-							<div class="btn-group checkbox" data-toggle="buttons" style="display: grid;grid-template-columns: 16em 16em;">
-									<label class="btn btn-default form-check-label">
-										<input class="form-check-input" type="radio" name="sale-or-rent" autocomplete="off" style="display: none;" value="sale"> Վաճառք
+							<div class="btn-group checkbox" data-toggle="buttons" style="display: grid;grid-template-columns: 16fr 16fr;">
+									<label class="btn bt-color1 form-check-label">
+										<input class="form-check-input" type="radio" name="sale-or-rent" autocomplete="off" style="display: none;" value="sale"> <p style="text-align: center;">Վաճառք </p>
 									</label>
 									
-									<label class="btn btn-default form-check-label">
+									<label class="btn bt-color1 form-check-label">
 										<input class="form-check-input" type="radio" name="sale-or-rent" autocomplete="off"  style="display: none;" value="rent"> Վարձակալություն
 									</label>
 							</div>
@@ -56,10 +56,10 @@
 							<p class="h4 py-4 p2-color text-center ">Մակերես</p>
 							<div class="form-row  checkbox text-center">
 								<div class="col">
-									<input type="number" name="area-from" class="form-control" placeholder="sksac">
+									<input type="number" name="area-from" class="form-control" placeholder="Սկսած">
 								</div>
 								<div class="col">
-									<input type="number" name="area-to" class="form-control" placeholder="verjacrac">
+									<input type="number" name="area-to" class="form-control" placeholder="Վերջացրած">
 								</div>
 							</div>
 							<p class="h4 py-4 p2-color text-center">Տարածաշրջան</p>
@@ -67,7 +67,7 @@
 								<?php echo drawRegion('state','target-change',false) ?>
 							</div>
 							<div class="form-group">
-								<button type="submit" class="btn bt-color1 btn-block">pntrel</button>
+								<button type="submit" class="btn bt-color1 btn-block">Փնտրել</button>
 							</div>
 						</form>
 					</div>

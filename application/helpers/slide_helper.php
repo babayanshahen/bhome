@@ -53,13 +53,25 @@ if (!function_exists('drawImage')) {
         foreach ($statement_images as $statement_image)
         {
             // out($statement_images);
-            $content .=  
-                        "<div data-p='170.00'>
-                            <img data-u='image' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg' />
-                            <div data-u='thumb'>
-                                <img data-u='thumb' class='i' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg'  style='width: 95px;height: 48px;'/>
-                            </div>
-                        </div>";
+
+            if(is_file( (FCPATH.'assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).'.jpg'))
+            {
+                $content .=  
+                            "<div data-p='170.00'>
+                                <img data-u='image' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg' />
+                                <div data-u='thumb'>
+                                    <img data-u='thumb' class='i' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg'  style='width: 95px;height: 48px;'/>
+                                </div>
+                            </div>";
+            }else{
+                $content .=  
+                    "<div data-p='170.00'>
+                                <img data-u='image' src='".base_url('assets/statements-img/default-image/default').".png' />
+                                <div data-u='thumb'>
+                                    <img data-u='thumb' class='i' src='".base_url('assets/statements-img/default-image/default').".png'  style='width: 95px;height: 48px;'/>
+                                </div>
+                            </div>";
+            }
         }
 
         echo $content;
@@ -291,26 +303,26 @@ if (!function_exists('drawKeywords')) {
     {
       
     $text = "";
-    	$text   .="<ul style='list-style-type: none;' class='pl-0'>";
+    	$text   .="<ul style='list-style-type: none;margin-top:20px' class='pl-0'>";
     if ($statement->individual == "true") {
-        $text .=    "<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
                         Անհատ
                     </li>";
     }
     elseif ($statement->individual == "false"){
-        $text .=    "<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
                         Գործակալություն
                     </li>";
     }
 
 	if ($statement->sale == 'false')
 	{
-	    $text .=    "<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+	    $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
 	                    Վարձակալություն
 	                </li>";
 	}
 	elseif ($statement->sale == "true"){
-	    $text .=    "<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+	    $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
 	                    Վաճառք
 	                </li>";
 	}
@@ -325,55 +337,55 @@ if (!function_exists('drawKeywords')) {
             $valute =  "EURO";
             break;
     }
-		$text .= 	"<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+		$text .= 	"<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
                              $statement->price  $valute
 	            	</li>";
 
 	if ( !(is_null($statement->address)) )
     {
-	    $text .= 	"<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+	    $text .= 	"<li class='btn btn-sm p2-color' style='font-size: 14px;'>
                              $statement->address
 	            	</li>";
 	}
 
     if ( !(is_null($statement->state->name)) ) 
     {
-        $text .=    "<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+        $text .=    "<li class='btn btn-sm p2-color' style='font-size: 14px;'>
                             ".$statement->state->name."
                     </li>";
     }
 	
 	if ( !(is_null($statement->size_floor)) ) {
 
-		$text .= 	"<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+		$text .= 	"<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
 	                            $statement->size_floor Հարկանի
 	                        </li>";
 	}
 
     if ( !(is_null($statement->type_build)) ) {
 
-        $text .=    "<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
                                ".$statement->type_build->type_build." 
                             </li>";
     }
 
 	if ( !(is_null($statement->floor)) && (int)$statement->floor != 0 )
 	{
-		$text .= 	"<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+		$text .= 	"<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
 	                            Գնտվում է շենքի ".(int)$statement->floor." -րդ հարկում
 	                        </li>";
 	}
 
     if ( !(is_null($statement->size_room)) )
     {
-        $text .=    "<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
                                 Սենյակների քանակը - ".(int)$statement->size_room."
                             </li>";
     }
 
     if ( !(is_null($statement->kind_build)) )
     {
-        $text .=    "<li class='btn btn-sm' style='color:black !important;font-size: 14px;'>
+        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
                                 ".$statement->kind_build->kind_build."
                             </li>";
     }

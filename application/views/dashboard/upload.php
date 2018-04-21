@@ -22,31 +22,16 @@
                                     </a>
                                 </ul>
                             </div>
-                            <nav class="side-menu">
-                                <ul class="nav">
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/upload') ?>"><span class="fa fa-plus"></span> Upload New Item</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard') ?>"><span class="fa fa-user"></span> Profile</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="<?php echo base_url('dashboard/settings') ?>"><span class="fa fa-cog"></span> Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/logout') ?>"><span class="fa fa-sign-out"></span> Logout</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            <?php $this->load->view('dashboard-template/dashboard-side-bar') ?>
                         </div>
                         <div class="content-panel">
                             <div class="content-header-wrapper">
                                 <h2 class="title">Upload</h2>
                                 <?php if ($this->session->userdata('add_statement_success')  ): ?>
-                                <h2 class="title">
-                                <?php echo $this->session->userdata('add_statement_success')?>
-                                </h2>
-                                <?php $this->session->unset_userdata('add_statement_success'); ?>
+                                    <h2 class="title">
+                                        <?php echo $this->session->userdata('add_statement_success')?>
+                                    </h2>
+                                    <?php $this->session->unset_userdata('add_statement_success'); ?>
                                 <?php endif; ?>
                                 <?php if ($this->session->userdata('add_update_success')  ): ?>
                                 <h2 class="title">
@@ -56,7 +41,11 @@
                                 <?php endif; ?>
                                 
                                 <div class="actions">
-                                    <a href="<?php echo base_url('dashboard')?>" class="btn btn-success upload_div"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a>
+                                    <?php if (!empty($EditStatementResult->id)): ?>
+                                        <a href="<?php echo base_url('dashboard/deleteStatement/'.$EditStatementResult->id) ?>" class="btn btn-danger">Հեռացնել</a>
+                                    <?php endif ?>
+
+                                    <!-- <a href="<?php echo base_url('dashboard')?>" class="btn btn-success upload_div"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a> -->
                                 </div>
                             </div>
                             <div class="drive-wrapper drive-grid-view">

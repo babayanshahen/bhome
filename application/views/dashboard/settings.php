@@ -71,22 +71,8 @@ padding: 5px ;
                                     </a>
                                 </ul>
                             </div>
-                            <nav class="side-menu">
-                                <ul class="nav">
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/upload') ?>"><span class="fa fa-plus"></span> Upload New Item</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard') ?>"><span class="fa fa-user"></span> Profile</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="<?php echo base_url('dashboard/settings') ?>"><span class="fa fa-cog"></span> Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/logout') ?>"><span class="fa fa-sign-out"></span> Logout</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            <?php $this->load->view('dashboard-template/dashboard-side-bar') ?>
+                            
                         </div>
                         <div class="content-panel">
                             <div class="content-header-wrapper">

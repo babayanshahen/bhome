@@ -3,7 +3,7 @@
 if (!function_exists('cutString')) {
     function cutString($text, $maxchar, $end='...') {
         if (strlen($text) > $maxchar || $text == '') {
-            $words = preg_split('/\s/', $text);     
+            $words = preg_split('/\s/', $text);
             $output = '';
             $i      = 0;
             while (1) {

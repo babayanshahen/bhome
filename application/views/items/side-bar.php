@@ -74,11 +74,11 @@
                         </div>
                         <br>
                         <div class="btn-group checkbox" data-toggle="buttons" style="display: grid;">
-                            <label class="btn btn-default form-check-label <?php echo $individualActive?>">
+                            <label class="btn bt-color1 form-check-label <?php echo $individualActive?>">
                                 <input class="form-check-input target-change" type="radio" name="individual-or-agency" autocomplete="off" style="display: none;" value="individual" id="anId5" <?php echo $individual ?> /> Անհատական
                             </label>
                             
-                            <label class="btn btn-default form-check-label <?php echo $agencyActive?>">
+                            <label class="btn bt-color1 form-check-label <?php echo $agencyActive?>">
                                 <input class="form-check-input target-change" type="radio" name="individual-or-agency" autocomplete="off"  style="display: none;" value="agency" id="anId6" <?php echo $agency ?> /> Գործակալություն
                             </label>
                         </div>
@@ -91,11 +91,11 @@
                         <hr>
 
                         <div class="btn-group checkbox" data-toggle="buttons" style="display: grid;">
-                            <label class="btn btn-default form-check-label <?php echo $saleActive ?>">
+                            <label class="btn bt-color1 form-check-label <?php echo $saleActive ?>">
                                 <input class="form-check-input target-change" type="radio" name="sale-or-rent" autocomplete="off" style="display: none;" value="sale" id="anId7" <?php echo $sale ?> /> Վաճառք
                             </label>
                             
-                            <label class="btn btn-default form-check-label <?php echo $rentActive ?>">
+                            <label class="btn bt-color1 form-check-label <?php echo $rentActive ?>">
                                 <input class="form-check-input target-change" type="radio" name="sale-or-rent" autocomplete="off"  style="display: none;" value="rent" id="anId8" <?php echo $rent ?> /> Վարձակալություն
                             </label>
                         </div>
@@ -108,8 +108,8 @@
                         <hr>
 
                         <p class="h5 mt-3 p2-color">Գին</p>
-                        <input type="number" name="price-from" class="form-control target-change" placeholder="sksac" value="<?php echo $priceFrom != 0 ? $priceFrom : '' ?>"><br>
-                        <input type="number"  name="price-to" class="form-control target-change" placeholder="verjacrac" value="<?php echo $priceTo != 0 ? $priceTo : '' ?>"><br>
+                        <input type="number" name="price-from" class="form-control target-change" placeholder="Սկսած" value="<?php echo $priceFrom != 0 ? $priceFrom : '' ?>"><br>
+                        <input type="number"  name="price-to" class="form-control target-change" placeholder="Վերջացրած" value="<?php echo $priceTo != 0 ? $priceTo : '' ?>"><br>
                         <select class="form-control target-change" name="valute">
                             <option value=''>Ցանկացած արժույթով</option>
                             <option value='1'> Միայն - Դոլլար </option>
@@ -150,7 +150,7 @@
                         <div class="form-row  checkbox">
                           <?php drawTypeofValue('valute',"target-change") ?>
                         </div>
-                        <!-- <button type="submit" class="btn bt-color1 btn-block">pntrel</button> -->
+                        <!-- <button type="submit" class="btn bt-color1 btn-block">Փնտրել</button> -->
                     </div>
                 </form>
             </div>

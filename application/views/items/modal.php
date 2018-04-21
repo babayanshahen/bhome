@@ -23,7 +23,7 @@
 					</div>
 				</div>
 				<div class="modal-footer d-flex justify-content-center">
-					<button class="btn btn-block bt-color" id="login-button">
+					<button class="btn btn-block bt-color1" id="login-button">
 						<div style="display: none" id="spinner">
 							<i class="fa fa-spinner fa-spin" style="font-size:20px" ></i>
 						</div>

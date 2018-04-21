@@ -22,9 +22,10 @@ class Statement_images_model extends CI_Model {
 
 	public function deleteItem($key=false)
 	{
-		$this->db->delete($this->table, array('key'=>$key) );
-			echo json_encode($this->db->affected_rows() == 1 ? true :false);
-			return ;
+		$this->db->delete($this->table, array('key'=>$key),1 );
+		
+		echo json_encode($this->db->affected_rows() == 1 ? true :false);
+		return ;
 		// echo $this->db->last_query();
 		// $this->db->delete($this->table);
 		// out($id);

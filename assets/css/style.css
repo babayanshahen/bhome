@@ -324,8 +324,8 @@ input::-webkit-inner-spin-button {
  .p-color{
      color: #FF7D85;
 }
- .bt-color1{
-     background-color: #FF7D85;
+.bt-color1{
+     background-color: #424f95;
      color: white;
 }
  .foot-back{
@@ -352,9 +352,7 @@ input::-webkit-inner-spin-button {
      background-color: #FF7D85;
      color: white;
 }
- select option:checked{
-     background-color: #FF7D85;
-}
+
  .pag-color{
      background-color: white !important;
      color: #FF7D85 !important;
@@ -445,3 +443,23 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0; 
 }
 
+.bt-color1.active{
+    background-color: #8D9AFF !important;
+}
+
+li{
+    cursor: context-menu  !important;
+}
+.btn.btn-sm.p2-color{
+    color:#8D9AFF !important;
+}
+.btn.bt-color1.btn-md{
+    margin:0;
+}
+
+.bt-color1.phone-number{
+        font-size: 15px;
+}
+.modal-footer{
+    padding: 0;
+}

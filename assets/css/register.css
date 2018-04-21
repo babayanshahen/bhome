@@ -9,8 +9,8 @@
      background-color: #424f95 !important;
 }
 }
- .navbar:not(.top-nav-collapse) {
-     background: transparent !important;
+.navbar:not(.top-nav-collapse) {
+     /*background: transparent !important;*/
 }
  @media (max-width: 768px) {
      .navbar:not(.top-nav-collapse) {

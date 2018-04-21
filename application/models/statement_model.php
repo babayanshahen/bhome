@@ -28,6 +28,7 @@ class Statement_model extends CI_Model {
 		$statements = $this->db
 					->from("$table")
 					->where($where)
+					->order_by('time', 'DESC')
 					->get()
 					->result();
 		foreach ($statements as $statement ) {
@@ -95,6 +96,46 @@ class Statement_model extends CI_Model {
 					)
 					->get()
 					->row();
+
+	}
+
+	public function getStatementWithAll($id=false)
+	{
+		$items = $this->db
+					->from("$this->table")
+					->where(
+						array(
+							'id' => (int)$id
+						)
+					)
+					->get()
+					->row();
+
+			$items->state = $this->db->from("states")
+										->where(
+											array(
+												'value' => $items->state
+											)
+										)
+										->get()
+										->row();
+			$items->type_build = $this->db->from("type_builds")
+										->where(
+											array(
+												'type_build' => $items->type_build
+											)
+										)
+										->get()
+										->row();
+			$items->kind_build = $this->db->from("kind_builds")
+										->where(
+											array(
+												'kind_build' => $items->type_build
+											)
+										)
+										->get()
+										->row();
+										return $items;
 
 	}
 
@@ -207,6 +248,7 @@ class Statement_model extends CI_Model {
 			$statements = $this->db
 							->from('statements')
 							->where($filter)
+							->order_by('time', 'DESC')
 							->get()
 							->result();
 		}else{
@@ -392,17 +434,18 @@ class Statement_model extends CI_Model {
 						->where( array('id' => $userId) )
 						->get()
 			->row();
-
-			$statement->images = $this->db
-						->from("statement-images")
-						->where(
-							array(
-								'statement_id' => $statement->id
+			if(isset($statement->id) && !empty($statement->id)){
+				$statement->images = $this->db
+							->from("statement-images")
+							->where(
+								array(
+									'statement_id' => $statement->id
+								)
 							)
-						)
-						->get()
-						->result();
-						return $statement;
+							->get()
+							->result();
+							return $statement;
+			}
 		}else{
 				die('userID  is  null');
 		}
@@ -480,6 +523,73 @@ class Statement_model extends CI_Model {
 			->row();
 			$this->db->where('id', $id);
 			return $this->db->update($this->table, $data);
+	}
+
+	public function deleteStatement($statementId=false)
+	{
+		if($statementId)
+		{
+			if($this->isUserStatement($statementId))
+			{
+				$this->db->where(array('id' => $statementId) );
+				$this->db->delete($this->table,array(),1);
+				$this->deleteUserStatementImages($statementId);
+			}
+		}else{
+			die("id  error");
+		}
+	}
+
+	/*Chech  user statement or no*/
+	private function isUserStatement($statementId=false)
+	{
+		if($statementId)
+		{
+			$userStatements = $this->db
+				->from($this->table)
+				->where(
+					array(
+						'user_id' => thisUserId()
+					)
+				)
+				->get()
+				->result();
+
+			$currentStatements = array();
+			foreach ($userStatements as $userStatement) {
+				array_push($currentStatements, $userStatement->id);
+			}
+
+			 return in_array($statementId, $currentStatements)  ? true : false ;
+		}
+
+	}
+
+	public function updateStatementTime($statemetnId=false)
+	{
+		if($statemetnId){
+			$this->db->where('id', $statemetnId);
+			$this->db->update(
+							$this->table,array(
+											'time' => time() 
+										) 
+						);
+			return $this->db->affected_rows();
+		}
+	}
+
+	private function deleteUserStatementImages($StatementId=false)
+	{
+		if($StatementId)
+		{
+			// get all file names
+			$files = glob(FCPATH."assets/statements-img/user-".thisUserId() ."/".$StatementId.'/*');
+			foreach($files as $file){ // iterate files
+				if(is_file($file))
+				unlink($file); // delete file
+			}
+			rmdir(FCPATH."assets/statements-img/user-".thisUserId() ."/".$StatementId);
+		}
 	}
 
 }

@@ -160,7 +160,8 @@ function deleteImage(imageKey = false,First,Second) {
     $.ajax({
         url: baseUrl + "dashboard/deleteImage/"+imageKey+'/'+First+'/'+Second,
         success: function(affectDeleteRows) {
-            location.reload();
+            $(this).html('');
+            // location.reload();
             // if (affectDeleteRows) {
             // }
         },

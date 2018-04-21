@@ -2,17 +2,70 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller {
+	function __construct(){
+		parent::__construct();
+		if(!isUserLoggedIn())
+		{
+			die("permission error");
+		}
+	}
 
 	public function index()
 	{
-		$this->load->model('statement_model');
-		$this->load->model('users_model');
-		$data = array(
-						"statements" =>	$this->statement_model->getMyStatements(thisUserId()),
-						"user" => $this->users_model->getUser( UserDetails()->email )
-					);
+		if(isUserLoggedIn()){
+			$this->load->model('statement_model');
+			$this->load->model('users_model');
+			
+			$data = array(
+							"statements" =>	$this->statement_model->getMyStatements(thisUserId()),
+							"user" => $this->users_model->getUser( UserDetails()->email )
+						);
 
-		$this->load->dashboard('dashboard',$data);
+			$this->load->dashboard('dashboard',$data);
+		}else{
+			redirect('main');
+		}
+	}
+
+	public function deleteStatement($statementId=false)
+	{
+		if($statementId)
+		{
+			$this->load->model('statement_model');
+			$this->statement_model->deleteStatement($statementId);
+			redirect('dashboard');
+		}
+	}
+
+	public function updateStatement($statementId)
+	{
+		$this->load->model('statement_model');
+		$rows = $this->statement_model->updateStatementTime($statementId);
+		if($rows == 1){
+			echo json_encode(
+				array(
+					'status' => true
+				)
+			);
+		}else{
+			echo json_encode(
+				array(
+					'status' => false
+				)
+			);
+		}
+		// $this->session->set_userdata('update_success', 
+		//         	"<div class='alert alert-success fade in alert-dismissible' style='margin-top:18px;'>
+		//     			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
+		//     			<strong>Շնորհակալություն </strong>  Ձեր  հայտարարությունը  N ".$statementId." թարմացված է և  տեղադրված առաջին էջում
+		// 			</div><script>window.setTimeout(function() {
+		// 			    $('.alert').fadeTo(500, 0).slideUp(500, function(){
+		// 			        $(this).remove(); 
+		// 			    });
+		// 			}, 4000);</script>"
+		// 		);
+
+		// redirect('dashboard');
 	}
 
 	public function upload($id=false)
@@ -78,21 +131,12 @@ class Dashboard extends CI_Controller {
 		$this->load->dashboard('upload',$data);
 	}
 
-	public function updateImage()
-	{
-		out($_FILES);
-		out($_POST);
-	}
-
 	public function updateItem($id=null,$vars=null)
 	{
 		// $res = (boolean) $this->input->post('update');
 		$this->load->model('statement_model');
 		$id = $this->input->post('id');
-
-			out( $this->input->post('update'),'dump');
-			// out($_FILES);
-			die();
+			
 		if( (boolean) $this->input->post('update') )
 		{
 			$files = $_FILES;
@@ -170,7 +214,6 @@ class Dashboard extends CI_Controller {
 								"user_id"			=> 	thisUserId(),
 								"name"				=> 	$this->input->post("name"),
 								"description"		=> 	$this->input->post("description"),
-								// "main_image"		=>	,
 								"individual"		=>	$this->input->post("individual-or-agency") == 'individual' ? 'true' : "false",
 								"agency"			=>	$this->input->post("individual-or-agency") == 'agency' ? 'true' : "false",
 								"area"				=>	$this->input->post("name"),
@@ -187,7 +230,8 @@ class Dashboard extends CI_Controller {
 								"valute"			=>	$this->input->post("valute"),
 								"mobile_number_1"	=>	$this->input->post("mobile_number_1"),
 								"mobile_number_2"	=>	$this->input->post("mobile_number_2"),
-								"mobile_number_3"	=>	$this->input->post("mobile_number_3")
+								"mobile_number_3"	=>	$this->input->post("mobile_number_3"),
+								"time"				=>	time()
 							);
 
 		$statemnetIsdertId = $this->statement_model->insertNewStatement($insertItemData);
@@ -267,6 +311,7 @@ class Dashboard extends CI_Controller {
 	public function settings()
 	{
 		$this->load->model('users_model');
+		$this->output->set_header('Pragma: no-cache');
 
 		$data = array(
 			"user" => $this->users_model->getUser( UserDetails()->email )
@@ -304,14 +349,23 @@ class Dashboard extends CI_Controller {
 	        }
         }
 
-        $this->upload->initialize( $this->set_upload_option_avatar() );
-
+        $this->upload->initialize($this->set_upload_option_avatar());
         if($this->upload->do_upload('upload-avatar-image'))
         {
 	        $vars['avatar'] = 'avatar_user_'.thisUserId();
+        }else{
+    //     	$this->session->set_userdata('add_photo', 
+	   //      	"<div class='alert alert-danger fade in alert-dismissible' style='margin-top:18px;'>
+	   //  			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
+	   //  			<strong>Շնորհակալություն </strong>  try  to upload another photo
+				// </div><script>window.setTimeout(function() {
+				//     $('.alert').fadeTo(500, 0).slideUp(500, function(){
+				//         $(this).remove(); 
+				//     });
+				// }, 4000);</script>");
+	        // $vars['error'] = $this->upload->display_errors();
+
         }
-        // out($vars);
-        // die();
 		$this->users_model->updateUser($vars);
 		redirect('dashboard/settings');
 	}
@@ -327,21 +381,29 @@ class Dashboard extends CI_Controller {
 	    
 	    $config['upload_path'] 		= $path;
 	    $config['allowed_types'] 	= 'jpg';
-    	// $config['max_size']     	= '2000000';
     	$config['overwrite']    	= TRUE;
     	$config['file_name'] 		= 'avatar_user_'.thisUserId();
-   //  	$config['width'] = '204px';
- 		// $config['height'] = '204px';
 
 	    return $config;
 	}
 
 	public function deleteImage($key=false,$first=false,$second=false)
 	{
-		$this->load->model("statement_images_model");
-		$file = FCPATH."assets/statements-img/user-".$second."/".$first."/".$key.".jpg";
-		unlink($file);
-		$this->statement_images_model->deleteItem($key,$first,$second);
+		if($second === thisUserId())
+		{
+			$this->load->model("statement_images_model");
+			$this->load->model("statement_model");
+			$this->statement_model->getStatement(thisUserId());
+
+			$image = $this->statement_images_model->getImages($first);
+
+			$this->statement_images_model->deleteItem($key,$first,$second);
+
+			$file = FCPATH."assets/statements-img/user-".$second."/".$first."/".$key.".jpg";
+			unlink($file);
+		}else{
+			die("permission error");
+		}
 		// $files = glob($path.'*'); // get all file names
 		// 	foreach($files as $file){ // iterate files
 		// 		if(is_file($file))
@@ -393,30 +455,38 @@ class Dashboard extends CI_Controller {
 		$files = $_FILES;
 		$cpt = count($_FILES['pro-image']['name'])-1;
 		$statement_id = $this->input->post('statement_id');
-
-		for($i=0; $i<$cpt; $i++)
+		if($cpt != 0)
 		{
-			$_FILES['pro-image']['name']= $files['pro-image']['name'][$i];
-			$_FILES['pro-image']['type']= $files['pro-image']['type'][$i];
-			$_FILES['pro-image']['tmp_name']= $files['pro-image']['tmp_name'][$i];
-			$_FILES['pro-image']['error']= $files['pro-image']['error'][$i];
-			$_FILES['pro-image']['size']= $files['pro-image']['size'][$i];    
+			for($i=0; $i<$cpt; $i++)
+			{
+				$_FILES['pro-image']['name']= $files['pro-image']['name'][$i];
+				$_FILES['pro-image']['type']= $files['pro-image']['type'][$i];
+				$_FILES['pro-image']['tmp_name']= $files['pro-image']['tmp_name'][$i];
+				$_FILES['pro-image']['error']= $files['pro-image']['error'][$i];
+				$_FILES['pro-image']['size']= $files['pro-image']['size'][$i];    
 
-	        $this->upload->initialize($this->set_upload_options($statement_id));
-	        $this->upload->do_upload('pro-image');
+		        $this->upload->initialize($this->set_upload_options($statement_id));
+		        $this->upload->do_upload('pro-image');
+		        $dataInfo = (object) $this->upload->data();
+		        // $dataInfo = $this->upload->data();
+		        // out((object)$dataInfo);
+		    		if($cpt == 1)
+		    		{
+		    			$this->setMainImage(explode('.', $dataInfo->file_name)[0],$statement_id);
+		    		}
 
-	        $dataInfo = $this->upload->data();
-
-	        if( isset($dataInfo['raw_name']) && !empty($dataInfo['raw_name']) )
-	        {
-		    	$insertItems = array(
-		    						"statement_id" 	=>	$statement_id,
-		    						"key" 			=>	 $dataInfo['raw_name']
-		    					);
-		    	// $this->statement_model->setMainImage($statement_id,array('main_image' =>$dataInfo['raw_name']));
-	    		$this->statement_images_model->insert($insertItems);
-	        }
-	    }
+		        if( isset($dataInfo->raw_name) && !empty($dataInfo->raw_name) )
+		        {
+			    	$insertItems = array(
+			    						"statement_id" 	=>	$statement_id,
+			    						"key" 			=>	 $dataInfo->raw_name
+			    					);
+			    	// $this->statement_model->setMainImage($statement_id,array('main_image' =>$dataInfo['raw_name']));
+		    		$this->statement_images_model->insert($insertItems);
+		        }
+		    }
+		}
+		// die();
 	    redirect('dashboard/editPhoto/'.$statement_id);
 	    die();
 		return;
@@ -426,18 +496,6 @@ class Dashboard extends CI_Controller {
 	{
 		$this->load->model('statement_model');
 
-
-		// $file = fopen(FCPATH.'assets/statements-img/user-'.thisUserId().'/'.$_statementId.'/'.$_imageKey.'.jpg' ,"r");
-		// echo FCPATH.'assets/statements-img/user-'.thisUserId().'/'.$_statementId.'/'.$_imageKey.'.jpg';
-		// echo fread($file,"10");
-		// echo $file;
-		 // $file = fopen($filename, "c");
-		  // fseek($file, -3, SEEK_END);
-		  // fwrite($file, "whatever you want to write");
-		  // fclose($file);
-
-		// out($file);
-		// die();
 		if($_imageKey){
 			$update = array(
 				"main_image"	=> $_imageKey

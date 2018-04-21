@@ -130,12 +130,16 @@
 	        error: function(jqXhr, textStatus, errorThrown) {
 	            // alert(errorThrown);
 	        },
-	       	onload: function(){
+	       	loading: function(){
 	        	alert('onload');
 	        }
         });
 	});
 
+	window.addEventListener("load", function(event) {
+    console.log("All resources finished loading!");
+  });
+	
 	function setActive(one,two){
 		return (one == two) ? 'pag-active' : 'pag-color';
 	}
@@ -181,6 +185,19 @@
 	      
         });
 
+	}
+
+	function getTopStatementModal(id){
+		$.ajax({
+            url: baseUrl+"main/showNewStatement/"+id,
+		    dataType: 'json',
+	        // data:data,
+	        success: function(content) {
+	        	$("#carouselExamples").append(content);
+	        	// $("#for-trigger-click").trigger('click');
+	        }
+	           
+        });
 	}
 	$("#organization-click").click(function() {
 		$('input:radio[value=organisation]').prop('checked', true);
