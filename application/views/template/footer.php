@@ -35,6 +35,9 @@
 <!-- <script type='text/javascript' src='http://bhome.art/assets/js/sor.js'></script> -->
 <script>
 	$( ".target-change" ).change(function() {
+
+		window.scrollTo(0, 0);
+
 		var state =  $("select[name=state]").val();
 		var individualValue =  false;
 		var agencyValue =  false;
@@ -68,8 +71,8 @@
 
 		var size_room =  $("select[name=size_room]").val();
 		var floor =  $("select[name=floor]").val();
-		var size_floor =  $("select[name=size_floor]").val();
-		var valute =  $("select[name=valute]").val();
+		var size_floor 	=	$("select[name=size_floor]").val();
+		var valute 		=	$("select[name=valute]").val();
 
 		var data = {
 			'state': state,

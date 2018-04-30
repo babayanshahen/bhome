@@ -98,28 +98,41 @@ $('select[name=kind_build]').on('change', function() {
     // console.log(type);
     if (type == 1) {
         $('select[name=floor]').attr("disabled", "disabled");
+        $('select[name=size_room]').removeAttr("disabled", "disabled");
+
         $('select[name=size_floor]').removeAttr("disabled", "disabled");
     }
     if (type == 2) {
         $('select[name=size_floor]').attr("disabled", "disabled");
+
         $('select[name=floor]').removeAttr("disabled", "disabled");
+        $('select[name=size_room]').removeAttr("disabled", "disabled");
     }
     if (type == 3) {
         $('select[name=size_floor]').attr("disabled", "disabled");
         $('select[name=floor]').attr("disabled", "disabled");
-    }
-    if (type == 5) {
-        $('select[name=size_floor]').attr("disabled", "disabled");
-        $('select[name=floor]').attr("disabled", "disabled");
+        $('select[name=size_room]').attr("disabled", "disabled");
+
+
     }
     if (type == 4) {
         $('select[name=size_floor]').removeAttr("disabled", "disabled");
         $('select[name=floor]').removeAttr("disabled", "disabled");
+        $('select[name=size_room]').removeAttr("disabled", "disabled");
 
+
+    }
+    if (type == 5) {
+        $('select[name=size_floor]').attr("disabled", "disabled");
+        $('select[name=floor]').attr("disabled", "disabled");
+
+        $('select[name=size_room]').attr("disabled", "disabled");  
+        $('select[name=size_room]').attr("disabled", "disabled");
     }
     if (type == 6) {
         $('select[name=size_floor]').removeAttr("disabled", "disabled");
         $('select[name=floor]').removeAttr("disabled", "disabled");
+        $('select[name=size_room]').removeAttr("disabled", "disabled");
     }
 })
 

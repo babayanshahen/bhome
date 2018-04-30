@@ -146,10 +146,10 @@
                         <div class="form-row  checkbox">
                           <?php drawSizeOfRoom('size_floor',"target-change") ?>
                         </div>
-                        <p class="h5 mt-3 p2-color">Ցույց տալ միայն արժույթով</p>
-                        <div class="form-row  checkbox">
-                          <?php drawTypeofValue('valute',"target-change") ?>
-                        </div>
+                        <!-- <p class="h5 mt-3 p2-color">Ցույց տալ միայն արժույթով</p> -->
+                        <!-- <div class="form-row  checkbox">
+                          <?php //drawTypeofValue('valute',"target-change") ?>
+                        </div> -->
                         <!-- <button type="submit" class="btn bt-color1 btn-block">Փնտրել</button> -->
                     </div>
                 </form>

@@ -290,11 +290,11 @@ if (!function_exists('drawSizeOfRoom')) {
 if (!function_exists('drawTypeofValue')) {
     function drawTypeofValue($drawType,$class)
     {
-        echo    "<select name='".$drawType."' class='form-control state ".$class."' required>
+        echo    "<select name='".$drawType."' class='form-control state ".$class."'>
                     <option value='0'>Ամբողջը</option>
                     <option value='1'>USD</option>                                                                            
                     <option value='2'>AMD</option>                                                                            
-                    
+                    <option value='3'>EURO</option> 
                 </select>";
 
     }
