@@ -12,14 +12,14 @@
 
 				<div class="modal-body mx-3">
 					<div class="md-form mb-5">
-						<i class="fa fa-envelope prefix p-color"></i>
+						<i class="fa fa-envelope prefix p2-color"></i>
 						<input type="email" name="email" id="defaultForm-email" class="form-control validate">
 						<label data-error=""  data-success="" for="defaultForm-email">Your email</label>
 					</div>
-					<div class="md-form mb-4">
+					<div class="md-form mb-5">
 						<i class="fa fa-lock prefix p2-color"></i>
 						<input type="password" name="password" id="defaultForm-password" class="form-control validate">
-						<label data-error="wrong" data-success="" for="defaultForm-password">Your password</label>
+						<label data-error="" data-success="" for="defaultForm-password">Your password</label>
 					</div>
 				</div>
 				<div class="modal-footer d-flex justify-content-center">

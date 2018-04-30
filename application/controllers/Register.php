@@ -45,12 +45,13 @@ class Register extends CI_Controller {
 		$this->load->model("users_model");
         $data = array();
         $userData = array();
+
         if($this->input->post('regisSubmit')){
             // $this->form_validation->set_rules('email', 'Email', 'required|valid_email|callback_email_check');
             $this->form_validation->set_rules('email', 'Email', 'required|trim|min_length[2]|max_length[50]|callback_email_check');
             $this->form_validation->set_rules('password', 'Password', 'required|min_length[6]|max_length[20]');
             $this->form_validation->set_rules('conf_password', 'Confirm password', 'required|matches[password]');
-            $this->form_validation->set_rules('full_name', 'Full name', 'required|min_length[6]|max_length[30]');
+            $this->form_validation->set_rules('full_name', 'Full name', 'required|min_length[3]|max_length[30]');
 
             $userData = (object) array(
                 'email' => strip_tags($this->input->post('email')),

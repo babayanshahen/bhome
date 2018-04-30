@@ -119,9 +119,9 @@
                         <br>
 
                         <p class="h5 mt-3 p2-color">Մակերես</p>
-                        <input type="number" class="form-control target-change" name="area-from" placeholder="sksac" value="<?php echo $areaFrom != 0 ? $areaFrom : ''?>">
+                        <input type="number" class="form-control target-change" name="area-from" placeholder="Սկսած" value="<?php echo $areaFrom != 0 ? $areaFrom : ''?>">
                         <br>
-                        <input type="number" class="form-control target-change" name="area-to" placeholder="verjacrac" value="<?php echo $areaTo != 0 ? $areaTo : '' ?>">
+                        <input type="number" class="form-control target-change" name="area-to" placeholder="Վերջացրած" value="<?php echo $areaTo != 0 ? $areaTo : '' ?>">
                         <br>
                         
                         <p class="h5 mt-3 p2-color">Շինության տիպը</p>

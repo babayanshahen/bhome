@@ -104,28 +104,25 @@
 	            });
 
 		        $(".pagination.pagination-circle").html('');
-		        var _countNewStatements = statements[0].pagination;
-		        if(_countNewStatements > 12)
-		        {
-		    //     	if( (_countNewStatements/12) > 5){
-		    //     		$(".pagination.pagination-circle").append(
-				  //       	"<li class='page-item'><a onclick='alert(1)' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='1' rel='prev'>«</a></li>"
-						// );
-		    //     	}
-
-		        	for (var i = 0; i < (_countNewStatements/12); i++)
-		        	{
-				        $(".pagination.pagination-circle").append(
-				        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * i)+ ","+(i + 1)+" ) ' class='page-link pag-color waves-effect waves-effect'>"+(i + 1)+"</a></li>"
-						);
-		        	}
-		        	if( (_countNewStatements/12) > 5 ){
-		        		$(".pagination.pagination-circle").append(
-				        	"<li class='page-item'><a onclick='alert(4)' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='3' rel='next'>»</a></li>"
-						);
-		        	}
+		        if(typeof statements[0] != 'undefined'){
+			        var _countNewStatements = statements[0].pagination;
+			        if(_countNewStatements > 12)
+			        {
+			        	for (var i = 0; i < (_countNewStatements/12); i++)
+			        	{
+					        $(".pagination.pagination-circle").append(
+					        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * i)+ ","+(i + 1)+" ) ' class='page-link pag-color waves-effect waves-effect'>"+(i + 1)+"</a></li>"
+							);
+			        	}
+			        	if( (_countNewStatements/12) > 5 ){
+			        		$(".pagination.pagination-circle").append(
+					        	"<li class='page-item'><a onclick='alert(4)' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='3' rel='next'>»</a></li>"
+							);
+			        	}
+			        }
+		        }else{
+			        $("#content-all-statement").html('Հայտարարություններ չեն գտնվել');
 		        }
-		        // $(".pagination.pagination-circle").html(value.pagination);
 	        },
 	        error: function(jqXhr, textStatus, errorThrown) {
 	            // alert(errorThrown);
@@ -159,28 +156,32 @@
 	                    value.content
 	                )
 	            });
-
 	            $(".pagination.pagination-circle").html('');
+
+		        if(typeof statements[0] != 'undefined'){
 		        var _countNewStatements = newStatements[0].pagination;
-		        if(_countNewStatements > 12)
-		        {
-		        	if( (_countNewStatements/12) > 5 && currentPage != 1){
-		        		$(".pagination.pagination-circle").append(
-				        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * (currentPage-2))+ ","+(currentPage - 1)+" )' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='1' rel='prev'>«</a></li>"
-						);
-		        	}
-		        	for (var i = 0; i < (_countNewStatements/12); i++)
-		        	{
-				        $(".pagination.pagination-circle").append(
-				        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * i)+ ","+(i + 1)+" ) ' class='page-link "+setActive((i + 1),currentPage)+" waves-effect waves-effect'>"+(i + 1)+"</a></li>"
-						);
-		        	}
-		        	if( (_countNewStatements/12) > 5 ){
-		        		$(".pagination.pagination-circle").append(
-				        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * (currentPage))+ ","+(currentPage + 1)+" )' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='3' rel='next'>»</a></li>"
-						);
-		        	}
-		        }
+		        	if(_countNewStatements > 12)
+			        {
+			        	if( (_countNewStatements/12) > 5 && currentPage != 1){
+			        		$(".pagination.pagination-circle").append(
+					        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * (currentPage-2))+ ","+(currentPage - 1)+" )' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='1' rel='prev'>«</a></li>"
+							);
+			        	}
+			        	for (var i = 0; i < (_countNewStatements/12); i++)
+			        	{
+					        $(".pagination.pagination-circle").append(
+					        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * i)+ ","+(i + 1)+" ) ' class='page-link "+setActive((i + 1),currentPage)+" waves-effect waves-effect'>"+(i + 1)+"</a></li>"
+							);
+			        	}
+			        	if( (_countNewStatements/12) > 5 ){
+			        		$(".pagination.pagination-circle").append(
+					        	"<li class='page-item'><a onclick='getNewStatements("+JSON.stringify(data)+",12," +(12 * (currentPage))+ ","+(currentPage + 1)+" )' class='page-link pag-color waves-effect waves-effect' data-ci-pagination-page='3' rel='next'>»</a></li>"
+							);
+			        	}
+			        }
+	            }else{
+			        $("#content-all-statement").html('Հայտարարություններ չեն գտնվել');
+	            }
 		    }
 	      
         });

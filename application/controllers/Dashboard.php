@@ -349,25 +349,55 @@ class Dashboard extends CI_Controller {
 	        }
         }
 
-        $this->upload->initialize($this->set_upload_option_avatar());
-        if($this->upload->do_upload('upload-avatar-image'))
-        {
-	        $vars['avatar'] = 'avatar_user_'.thisUserId();
-        }else{
-    //     	$this->session->set_userdata('add_photo', 
-	   //      	"<div class='alert alert-danger fade in alert-dismissible' style='margin-top:18px;'>
-	   //  			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
-	   //  			<strong>Շնորհակալություն </strong>  try  to upload another photo
-				// </div><script>window.setTimeout(function() {
-				//     $('.alert').fadeTo(500, 0).slideUp(500, function(){
-				//         $(this).remove(); 
-				//     });
-				// }, 4000);</script>");
-	        // $vars['error'] = $this->upload->display_errors();
+    //     //$this->upload->initialize($this->set_upload_option_avatar());
+    //     if($this->upload->do_upload('upload-avatar-image'))
+    //     {
+	   //      $vars['avatar'] = 'avatar_user_'.thisUserId();
+    //     }else{
+    // //     	$this->session->set_userdata('add_photo', 
+	   // //      	"<div class='alert alert-danger fade in alert-dismissible' style='margin-top:18px;'>
+	   // //  			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
+	   // //  			<strong>Շնորհակալություն </strong>  try  to upload another photo
+				// // </div><script>window.setTimeout(function() {
+				// //     $('.alert').fadeTo(500, 0).slideUp(500, function(){
+				// //         $(this).remove(); 
+				// //     });
+				// // }, 4000);</script>");
+	   //      // $vars['error'] = $this->upload->display_errors();
 
-        }
+    //     }
 		$this->users_model->updateUser($vars);
 		redirect('dashboard/settings');
+	}
+
+	public function updatePhoto(){
+		$this->load->model('users_model');
+
+		$croppedImage = $_FILES['croppedImage'];
+		$to_be_upload = $croppedImage['tmp_name'];
+		$path  = FCPATH.'assets/statements-img/user-'.thisUserId();
+		$path2  = $path.'/avatar';
+
+		if(!is_dir($path))
+		{
+	      mkdir($path);
+	    }
+
+	    if(!is_dir($path2))
+		{
+	      mkdir($path2);
+	    }
+	    
+		$new_file 	= 'avatar_user_'.thisUserId().'.jpg';
+
+		$this->users_model->updateUser(
+			array(
+				'avatar' =>	$new_file
+			)
+		);
+
+		echo json_encode( array('status' => move_uploaded_file($to_be_upload, "$path2/$new_file")) );
+
 	}
 
 	private function set_upload_option_avatar()

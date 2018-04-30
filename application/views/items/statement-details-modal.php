@@ -12,7 +12,7 @@
 					<script>
 							jssor_1_slider_init = function() {
 							    var jssor_1_options = {
-							        $AutoPlay: 1,
+							        // $AutoPlay: 1,
 							        $SlideshowOptions: {
 							            $Class: $JssorSlideshowRunner$,
 							            $Transitions: jssor_1_SlideshowTransitions,
@@ -44,6 +44,17 @@
 							    $Jssor$.$AddEvent(window, "resize", ScaleSlider);
 							    $Jssor$.$AddEvent(window, "orientationchange", ScaleSlider);
 							};
+
+					function setSizeToPicture(src){
+						// console.log(src);
+						var image = new Image();
+						image.src = src+".jpg";
+						image.onload = function() {
+						    // console.log('width - ' + image.naturalWidth);
+						    // console.log('height - ' + image.naturalHeight);
+						    // $(".data-slide-image").css("width",image.naturalWidth)
+						}
+					}
 					</script>
 					
 					
@@ -51,7 +62,7 @@
 						<div data-u="loading" class="jssorl-009-spin" style="position:absolute;top:0px;left:0px;width:100%;height:100%;text-align:center;background-color:rgba(0,0,0,0.7);">
 							<img style="margin-top:-19px;position:relative;top:50%;width:38px;height:38px;" src="<?php base_url('assets/img/spin.svg') ?>" />
 						</div>
-						<div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:380px;overflow:hidden;">
+						<div data-u="slides" style="cursor:default;position:relative;top:0px;left:0px;width:980px;height:380px;overflow:hidden;" >
 							<?php drawImage($statement_id,$statement_user_id) ?>
 						</div>
 						<div data-u="thumbnavigator" class="jssort121" style="position:absolute;left:0px;top:0px;width:120px;height:380px;overflow:hidden;cursor:default;" data-autocenter="2" data-scale-left="0.75">
@@ -71,34 +82,59 @@
 						</div>
 					</div>
 					<script type="text/javascript">
+						
 						jssor_1_slider_init();
 					</script>
 
-						<div class="container">
+						<div class="row">
 							<?php drawKeywords($statement); ?>
 						</div>
 
-						<div class="container">
-							<?php echo $statement->description ?>
+						<div class="row">
+							<div class="ml-2">
+								<?php echo $statement->description ?>
+							</div>
 						</div>
-						<button type="button" class="btn bt-color1 phone-number" >
-							<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_1 ?>
-						</button>
-						<?php if (!is_null($statement->mobile_number_2) && !empty($statement->mobile_number_2) ): ?>
-							<button type="button" class="btn bt-color1 phone-number" >
-								<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_2 ?>
-							</button>
-						<?php endif ?>
-						<?php if (!is_null($statement->mobile_number_3) && !empty($statement->mobile_number_3) ): ?>
-							<button type="button" class="btn bt-color1 phone-number" >
-								<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_3 ?>
-							</button>
-						<?php endif ?>
+						<div class="row">
+							<div class="ml-2 mt-3">
+								<button type="button" class="btn bt-color1 phone-number m-0 p-1 no-cursor" >
+									<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_1 ?>
+								</button>
+								<?php if (!is_null($statement->mobile_number_2) && !empty($statement->mobile_number_2) ): ?>
+									<button type="button" class="btn bt-color1 phone-number m-0 p-1 no-cursor" >
+										<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_2 ?>
+									</button>
+								<?php endif ?>
+								<?php if (!is_null($statement->mobile_number_3) && !empty($statement->mobile_number_3) ): ?>
+									<button type="button" class="btn bt-color1 phone-number m-0 p-1 no-cursor" >
+										<i class="fa fa-phone fa-2x" >&nbsp;</i><?php echo $statement->mobile_number_3 ?>
+									</button>
+								<?php endif ?>
+								
+							</div>
+						</div>
 
 				</div>
 			</div>
+			<?php //out($statement); ?>
 			<div class="modal-footer">
-				<button type="button" class="btn bt-color1" data-dismiss="modal">Փակել</button>
+				<div class="container">
+				<a href="<?php echo base_url("statements/userStatement/$statement->user_id") ?>">
+					<button type="button" class="btn bt-color1 button-info p-0 no-cursor">
+						<?php if (is_file( (FCPATH.'assets/statements-img/user-'.$statement->user_id.'/'.'avatar/'.$statement->user_params->avatar) )): ?>
+						<img class="rounded-circle img-resp" src="<?php echo base_url('assets/statements-img/user-'.$statement->user_id.'/'.'avatar/'.$statement->user_params->avatar) ?>" alt="$statement->user_params->full_name" title="<?php echo  $statement->user_params->full_name ?>">
+						<?php else: ?>
+						<img class="rounded-circle img-resp" src="<?php echo base_url('assets/img/profile/profile-avatar.png') ?>" alt="$statement->user_params->full_name" title="<?php echo  $statement->user_params->full_name ?>">
+
+						<?php endif ?>
+						<span class="ml-1 mr-2 no-cursor">
+							<?php echo $statement->user_params->full_name ?>
+						</span>
+					</button>
+				</a>
+				<!-- <span class=" p2-color "> </span> -->
+				<button type="button" class="btn bt-color1 float-right mr-0" data-dismiss="modal">Փակել</button>
+				</div>
 			</div>
 		</div>
 	</div>

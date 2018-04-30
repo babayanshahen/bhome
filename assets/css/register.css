@@ -1,16 +1,16 @@
-.intro-2 {
+ .intro-2 {
      background: url("../img/profile/background-profile.png") no-repeat center center;
      background-size: cover;
      height: 100%;
     
 }
-
+/*
  .top-nav-collapse {
      background-color: #424f95 !important;
 }
 }
 .navbar:not(.top-nav-collapse) {
-     /*background: transparent !important;*/
+     background: transparent !important;
 }
  @media (max-width: 768px) {
      .navbar:not(.top-nav-collapse) {
@@ -36,12 +36,12 @@
          margin-left: 1rem;
     }
 }
-/* -- import Bootstrap v3 --------------------------- */
-/* -- import Bootstrap docs ------------------------- */
-/* -- import Roboto Font ---------------------------- */
+-- import Bootstrap v3 ---------------------------
+-- import Bootstrap docs -------------------------
+-- import Roboto Font ----------------------------
  @import "https://fonts.googleapis.com/css?family=Roboto:400,100,100italic,300,300italic,400italic,500,500italic,700,700italic,900,900italic&subset=latin,cyrillic";
-/* -- Body style ------------------------------------ */
-/* -- Input styles ---------------------------------- */
+-- Body style ------------------------------------
+-- Input styles ----------------------------------
  .form-group {
      position: relative;
      margin-top: 35px;
@@ -75,7 +75,7 @@
      outline: none;
      box-shadow: none;
 }
-/* -- label styles ---------------------------------- */
+-- label styles ----------------------------------
  label {
      position: absolute;
      top: -18px;
@@ -102,12 +102,12 @@
      font-size: 16px;
      pointer-events: none;
 }
-/* active state */
+active state
  .form-control:focus ~ .float-label, .form-control:valid ~ .float-label {
      top: -18px;
      font-size: 12px;
 }
-/* input colors ---- */
+input colors ----
  // default .form-control:focus {
      ~ label {
          color: #03a9f4;
@@ -118,7 +118,7 @@
 }
  .form-control:valid ~ .control-label {
 }
-/* help-block */
+help-block
  .form-group .help-block {
      position: absolute;
 }
@@ -127,12 +127,12 @@
      // caption font-size: 12px;
      font-weight: 300;
 }
-/* input addon ---*/
+input addon ---
  .input-group-addon {
      border: none;
      background: transparent;
 }
-/* ------ inline ----*/
+------ inline ----
  .input-group-addon, .form-inline .input-group {
      display: table-cell;
 }
@@ -153,7 +153,7 @@
          width: auto;
     }
 }
-/* -- bar styles -------------------------------------- */
+-- bar styles --------------------------------------
  .form-bar {
      position: relative;
      display: block;
@@ -175,11 +175,11 @@
  .form-bar:after {
      right: 50%;
 }
-/* active state */
+active state
  .form-control:focus ~ .form-bar:before, .form-control:focus ~ .form-bar:after {
      width: 50%;
 }
-/* -- highlighter styles ------------------------------ */
+-- highlighter styles ------------------------------
  .form-highlight {
      position: absolute;
      height: 60%;
@@ -189,13 +189,13 @@
      pointer-events: none;
      opacity: 0.4;
 }
-/* active state */
+active state
  .form-control:focus ~ .form-highlight {
      -webkit-animation: inputHighlighter 0.3s ease;
      -moz-animation: inputHighlighter 0.3s ease;
      animation: inputHighlighter 0.3s ease;
 }
-/* -- highlighter animation --------------------------- */
+-- highlighter animation ---------------------------
  @-webkit-keyframes inputHighlighter {
      from {
          background:#5264AE;
@@ -223,9 +223,9 @@
          background:transparent;
     }
 }
-/*-- Checkbox --------------------------- */
+-- Checkbox ---------------------------
  // fork from https://codepen.io/jasonmayes/pen/wxtFr 
-/* * Core styles required for the checkboxes. * @author Jason Mayes 2014, www.jasonmayes.com */
+* Core styles required for the checkboxes. * @author Jason Mayes 2014, www.jasonmayes.com
  .form-group.checkbox {
      margin-top: 20px;
 }
@@ -365,7 +365,7 @@
 }
 @media (min-width: 768px) {
 
-    /* show 3 items */
+    show 3 items
     .carousel-inner .active,
     .carousel-inner .active + .carousel-item,
     .carousel-inner .active + .carousel-item + .carousel-item,
@@ -395,7 +395,7 @@
         visibility: visible;
     }
     
-    /* left or forward direction */
+    left or forward direction
     .active.carousel-item-left + .carousel-item-next.carousel-item-left,
     .carousel-item-next.carousel-item-left + .carousel-item,
     .carousel-item-next.carousel-item-left + .carousel-item + .carousel-item,
@@ -406,7 +406,7 @@
         visibility: visible;
     }
     
-    /* farthest right hidden item must be abso position for animations */
+    farthest right hidden item must be abso position for animations
     .carousel-inner .carousel-item-prev.carousel-item-right {
         position: absolute;
         top: 0;
@@ -416,7 +416,7 @@
         visibility: visible;
     }
     
-    /* right or prev direction */
+    right or prev direction
     .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
     .carousel-item-prev.carousel-item-right + .carousel-item,
     .carousel-item-prev.carousel-item-right + .carousel-item + .carousel-item,
@@ -469,7 +469,7 @@
      outline: none;
      box-shadow: none;
 }
-/* -- label styles ---------------------------------- */
+-- label styles ----------------------------------
  label {
      position: absolute;
      top: -18px;
@@ -499,8 +499,8 @@
 }
 
 .full-reg{
-    /* margin-top:300px;
-     margin-bottom:100px;*/
+    margin-top:300px;
+     margin-bottom:100px;
      
 }
 .reg-form{
@@ -517,7 +517,7 @@
      position: relative;
      background-color: #FF7D85 !important;
      border-radius: 5px;
-     /*float: right;*/
+     float: right;
      bottom: 10px;
      width: 130px;
 }
@@ -539,7 +539,7 @@
      height: 40px;
      color:grey;
      transition:0.2s;
-     /*border-radius:20px;*/
+     border-radius:20px;
 
 }
 .set-height:hover{
@@ -553,4 +553,173 @@
 }
 .ic-color1{
      color:#8D9AFF;
+}
+
+
+
+ */
+
+
+
+.title {
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 30px;
+  color: #8D9AFF;
+  font-size: 16px;
+  letter-spacing: 0.5px;
+}
+
+.description {
+  color: #666;
+  margin-bottom: 18px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+  padding: 10px 20px;
+  border: 1px solid #8D9AFF;
+  border-radius: 3px;
+  display: block;
+  width: 100%;
+  margin-bottom: 20px;
+  box-sizing: border-box;
+  outline: none;
+}
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="email"]:focus {
+  border:2px solid #424f95;
+}
+
+input[type="radio"] {
+  margin-right: 10px;
+}
+
+label {
+  margin-bottom: 20px;
+  display: block;
+  font-size: 18px;
+  color: #666;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 20px 0;
+  cursor: pointer;
+}
+label:first-child {
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+.button,
+.rerun-button {
+  padding: 10px 20px;
+  border-radius: 3px;
+  background: #424f95;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  display: inline-block;
+  cursor: pointer;
+  border:none;
+  transition: ease 0.2s;
+}
+.button:hover,
+.rerun-button:hover {
+  background: #8D9AFF;
+}
+.button.rerun-button,
+.rerun-button.rerun-button {
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  margin-bottom: 50px;
+  box-shadow: 0px 10px 15px -6px rgba(0, 0, 0, 0.2);
+  display: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.modal-wrap {
+  max-width: 600px;
+  margin: 50px auto;
+  transition: transform 300ms ease-in-out;
+}
+
+.modal-header {
+  height: 45px;
+  background: white;
+  border-bottom: 1px solid #ccc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-header span {
+  display: block;
+  height: 12px;
+  width: 12px;
+  margin: 5px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2);
+}
+.modal-header span.is-active {
+  background: rgba(0, 0, 0, 0.4);
+  background: #8D9AFF;
+}
+
+.modal-bodies {
+  position: relative;
+  perspective: 1000px;
+}
+
+.modal-body {
+  background: white;
+  padding: 40px 100px;
+  box-shadow: 0px 50px 30px -30px rgba(0, 0, 0, 0.3);
+  margin-bottom: 50px;
+  position: absolute;
+  top: 0;
+  display: none;
+  box-sizing: border-box;
+  width: 100%;
+  transform-origin: top left;
+}
+.modal-body.is-showing {
+  display: block;
+}
+
+.animate-out {
+  animation: out 600ms ease-in-out forwards;
+}
+
+.animate-in {
+  animation: in 500ms ease-in-out forwards;
+  display: block;
+}
+
+.animate-up {
+  transform: translateY(-500px) rotate(30deg);
+}
+
+@keyframes out {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  60% {
+    transform: rotate(60deg);
+  }
+  100% {
+    transform: translateY(800px) rotate(10deg);
+  }
+}
+@keyframes in {
+  0% {
+    opacity: 0;
+    transform: rotateX(-90deg);
+  }
+  100% {
+    opacity: 1;
+    transform: rotateX(0deg);
+  }
 }

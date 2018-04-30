@@ -126,6 +126,7 @@ $('select[name=kind_build]').on('change', function() {
 if ($('select[name=kind_build]').val() == 3) {
     $('select[name=size_floor]').attr("disabled", "disabled");
     $('select[name=floor]').attr("disabled", "disabled");
+    $('select[name=size_room]').attr("disabled", "disabled");
 }
 
 if ($('select[name=kind_build]').val() == 1) {
@@ -148,10 +149,12 @@ if ($('select[name=kind_build]').val() == 6) {
 }
 
 $('select[name=valute]').on('change', function() {
-    if ($('select[name=valute]').val() == "amd") {
+    if ($('select[name=valute]').val() == 2) {
         $("#valute-icon").attr("src", baseUrl + "assets/img/valute/amd.png");
-    } else if ($('select[name=valute]').val() == "usd") {
+    } else if ($('select[name=valute]').val() == 1) {
         $("#valute-icon").attr("src", baseUrl + "assets/img/valute/dollar.png");
+    }else if ($('select[name=valute]').val() == 3) {
+        $("#valute-icon").attr("src", baseUrl + "assets/img/valute/euro.png");
     }
 })
 
@@ -161,7 +164,7 @@ function deleteImage(imageKey = false,First,Second) {
         url: baseUrl + "dashboard/deleteImage/"+imageKey+'/'+First+'/'+Second,
         success: function(affectDeleteRows) {
             $(this).html('');
-            // location.reload();
+            // window.location.reload(true)
             // if (affectDeleteRows) {
             // }
         },

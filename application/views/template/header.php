@@ -9,6 +9,7 @@
 		<link href="<?php  echo base_url('assets/css/bootstrap.min.css')?>" rel="stylesheet">
 		<link href="<?php  echo base_url('assets/css/mdb.min.css')?>" rel="stylesheet">
 		<link href="<?php  echo base_url('assets/css/style.css')?>" rel="stylesheet">
+		<link href="<?php  echo base_url('assets/css/animate.css')?>" rel="stylesheet">
 		<script type="text/javascript" src="<?php  echo base_url('assets/js/jquery-3.2.1.min.js')?>"></script>
 	</head>
 	<body>
@@ -38,11 +39,14 @@
 								</li>
 							<?php else: ?>
 								<li class="nav-item">
-									<a class="nav-link" href="<?php echo base_url('register')?>">REGISTRATION</a>
+									<a class="nav-link" href="<?php echo base_url('register')?>">Գրանցվել</a>
 								</li>
-								<li class="nav-item">
-									<a class="nav-link" href="#" data-toggle="modal" data-target="#modalLoginForm">LOG IN</a>
-								</li>
+									<?php if (is_null($this->uri->segment(1)) || $this->uri->segment(1) != "register"): ?>
+										<li class="nav-item">
+											<a class="nav-link" href="#" data-toggle="modal" data-target="#modalLoginForm">Մուտք</a>
+										</li>
+									<?php endif ?>
+
 							<?php endif ?>
 						</ul>
 						<form action="<?php echo base_url('statements/searching')?>" method="POST">

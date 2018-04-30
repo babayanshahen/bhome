@@ -68,7 +68,7 @@ class Main extends CI_Controller {
 																				),true
 					);
 					$resultContent = 	"<div class='col-6 col-sm-3'>".
-											"<div class='card mb-4'>".
+											"<div class='card mb-4 anim'>".
 												"<div class='view overlay'>";
 					if (is_file( (FCPATH.'assets/statements-img/user-'.$result->user_id.'/'.$result->id.'/'.$result->main_image.'.jpg') )) {
 
@@ -86,7 +86,7 @@ class Main extends CI_Controller {
 												"<div class='card-body'>".
 												"<h4 class='card-title p2-color'>".cutString($result->name , 15,' ...')."</h4>".
 												"<p class='card-text'>".cutString($result->description,15,' ...')."</p>".
-												"<button type='button' class='btn bt-color1 btn-md' data-toggle='modal' data-target='#exampleModal-".$result->id."'>Read more</button>".
+												"<button type='button' class='btn bt-color1 btn-md' data-toggle='modal' data-target='#exampleModal-".$result->id."'>Ավելին</button>".
 											"</div>".
 											"</div>".
 										"</div>".$this->load->view('items/statement-details-modal',array(

@@ -4,9 +4,9 @@
 			<div class="row flex-center">
 				<div class="col-md-10 col-lg-6 text-center text-md-left margins">
 					<div class="white-text">
-						<h1 class="h1-responsive font-weight-bold mt-sm-5 wow fadeInLeft" data-wow-delay="0.3s">Make purchases with our app </h1>
+						<h1 class="h1-responsive font-weight-bold mt-sm-5 wow fadeInLeft" data-wow-delay="0.3s">Բացահայտեք ձեր անշարժ գույքը</h1>
 						<hr class="hr-light wow fadeInLeft" data-wow-delay="0.3s">
-						<h6 class="wow fadeInLeft" data-wow-delay="0.3s">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem repellendus quasi fuga nesciunt dolorum nulla magnam veniam sapiente, fugiat! Commodi sequi non animi ea dolor molestiae iste.
+						<h6 class="wow fadeInLeft" data-wow-delay="0.3s">անշարժ գույքի վաճառքի և վարձակալության ամենատարածված աղբյուրը մեր կայքում
 						</h6>
 						<br>
 					</div>

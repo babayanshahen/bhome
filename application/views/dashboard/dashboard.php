@@ -51,7 +51,7 @@ display: block;
 height: 2.5em;
 line-height: 2.5em;
 /*min-width: 12em;*/
-padding-left: 6em;
+padding-left: 70px;
 padding-right: 3em;
 margin: 0 auto;
 
@@ -109,7 +109,7 @@ animation: fade-in .1s ease 2.05s;
 animation-fill-mode: forwards;
 }
 .checkmark.animate2 {
-left: 43px;
+left: 56px;
 animation: check-pop-up .1s ease 1.9s;
 animation-fill-mode: forwards;
 }
@@ -130,11 +130,23 @@ animation: fade-in .1s ease 1.8s;
 animation-fill-mode: forwards;
 }
 .checkmark.animate4 {
-left: 90px;
-top: 11px;
-animation: check-pop-up .1s ease 1.8s;
-animation-fill-mode: forwards;
+    left: 90px;
+    top: 11px;
+    animation: check-pop-up .1s ease 1.8s;
+    animation-fill-mode: forwards;
 }
+.btn.btn-edit{
+    background-color: #FF7D85;
+    color: white;
+    padding: 7px 33px 5px 31px;
+}
+.custom-card img{
+    height: 160px;
+}
+.mb-4{
+    margin-bottom: 1.5rem!important;
+}
+
 @keyframes fade-in {
 from {opacity: 0;}
 to {opacity: 1;}
@@ -193,22 +205,6 @@ to {top: 11px; opacity: 1;}
                                     </ul>
                                 </a>
                             </div>
-                            <!-- <nav class="side-menu">
-                                <ul class="nav">
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/upload') ?>"><span class="fa fa-plus"></span> Upload New Item</a>
-                                    </li>
-                                    <li class="active">
-                                        <a href="<?php echo base_url('dashboard') ?>"><span class="fa fa-user"></span> Profile</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/settings') ?>"><span class="fa fa-cog"></span> Settings</a>
-                                    </li>
-                                    <li>
-                                        <a href="<?php echo base_url('dashboard/logout') ?>"><span class="fa fa-sign-out"></span> Logout</a>
-                                    </li>
-                                </ul>
-                            </nav> -->
                             
                             <?php $this->load->view('dashboard-template/dashboard-side-bar') ?>
                         </div>
@@ -220,9 +216,6 @@ to {top: 11px; opacity: 1;}
                                 //     $this->session->unset_userdata('update_success');
                                 // }
                             ?>
-                            <div class="content-header-wrapper">
-                                <h2 class="title"><?php echo $currentUser->full_name?> Drive</h2>
-                            </div>
                             <div class="drive-wrapper drive-grid-view">
                                 <div class="grid-items-wrapper">
                                     <div class="container-fluid">
@@ -230,34 +223,40 @@ to {top: 11px; opacity: 1;}
                                             <?php if (!empty($statements)): ?>
                                             <?php foreach ($statements as $statement): ?>
                                             <!-- onclick="statementEdit( $(this).attr('data-statement-id') )" data-statement-id="<?php echo  $statement->id ?>" -->
-                                            <div class="col-md-4">
-                                                <div class="custom-card">
-                                                    <?php if(is_file( (FCPATH.'assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image.'.jpg') )): ?>
-                                                    <img src="<?php echo base_url('assets/statements-img/user-').$statement->user_id.'/'.$statement->id.'/'.$statement->main_image?>.jpg" alt="Avatar" style="width:100%">
-                                                    <?php else: ?>
-                                                    <img src="<?php echo  base_url('assets/statements-img/default-image/default')?>.png" style="width:100%" >
-                                                    <?php endif ?>
-                                                    <div class="custom-container">
-                                                        <h4><b><?php echo  cutString($statement->name,28) ?></b></h4>
-                                                        <!-- <p><?php //echo cutString($statement->description , 50) ?></p> -->
-                                                    </div>
-                                                        <div class="btn btn-update custom-container">
-                                                            <button class="save-btn" id="btn2">
-                                                            <div class="message">Թարմացնել</div>
-                                                            <div class="loader">
-                                                                <svg x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 5 0;" xml:space="preserve">
-                                                                    <path fill="#FFF" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
-                                                                        <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="780ms" repeatCount="indefinite" calcMode="spline" keySplines="0.44, 0.22, 0, 1" keyTimes="0;1"/>
-                                                                    </path>
-                                                                </svg>
-                                                            </div>
-                                                                <div class="confirm-message"></div>
-                                                                <div class="checkmark"></div>
-                                                            </button>
+                                            <div class="col-md-4 col-sm-6">
+                                                    <div class="custom-card mb-4">
+                                                        <?php if(is_file( (FCPATH.'assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image.'.jpg') )): ?>
+                                                        <img src="<?php echo base_url('assets/statements-img/user-').$statement->user_id.'/'.$statement->id.'/'.$statement->main_image?>.jpg" alt="Avatar" style="width:100%">
+                                                        <?php else: ?>
+                                                        <img src="<?php echo  base_url('assets/statements-img/default-image/default')?>.png" style="width:100%" >
+                                                        <?php endif ?>
+                                                        <div class="custom-container">
+                                                            <h4><b><?php echo  cutString($statement->name,28) ?></b></h4>
+                                                            <!-- <p><?php //echo cutString($statement->description , 50) ?></p> -->
                                                         </div>
-                                                    <!-- <a href="<?php echo base_url('dashboard/updateStatement/'.$statement->id) ?>" class="btn btn-success">Update</a> -->
-                                                    <a href="<?php echo base_url('dashboard/upload/'.$statement->id) ?>" class="btn btn-warning">Փոփոխել</a>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="btn btn-update custom-container">
+                                                                    <button class="save-btn" id="btn2" data-statement-id="<?php echo $statement->id  ?>">
+                                                                    <div class="message">Թարմացնել</div>
+                                                                    <div class="loader">
+                                                                        <svg x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 5 0;" xml:space="preserve">
+                                                                            <path fill="#FFF" d="M43.935,25.145c0-10.318-8.364-18.683-18.683-18.683c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615c8.072,0,14.615,6.543,14.615,14.615H43.935z">
+                                                                                <animateTransform attributeType="xml" attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="780ms" repeatCount="indefinite" calcMode="spline" keySplines="0.44, 0.22, 0, 1" keyTimes="0;1"/>
+                                                                            </path>
+                                                                        </svg>
+                                                                    </div>
+                                                                        <div class="confirm-message"></div>
+                                                                        <div class="checkmark"></div>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <a href="<?php echo base_url('dashboard/upload/'.$statement->id) ?>" class="btn btn-edit">Փոփոխել</a>
+                                                            </div>
+                                                        <!-- <a href="<?php echo base_url('dashboard/updateStatement/'.$statement->id) ?>" class="btn btn-success">Update</a> -->
                                                 </div>
+                                                    </div>
                                             </div>
                                             <?php endforeach ?>
                                             <?php else: ?>
@@ -276,38 +275,21 @@ to {top: 11px; opacity: 1;}
         </div>
     </div>
     <script>
-    $('.save-btn').on('click', function(e){
-        e.preventDefault();
-        var _statementId = <?php echo $statement->id ?>;
-        $(this).find('.message').addClass('animate');
-        $(this).find('.loader').addClass('animate');
-        $.ajax({url: baseUrl+"dashboard/updateStatement/"+_statementId,
-            success: function(status){
+        $('.save-btn').on('click', function(e){
+            e.preventDefault();
+            var _statementId = $(this).attr('data-statement-id');
 
-            // $("#div1").html(result);
-        }});
-    });
-    // $('#btn1').on('click', function(e){
-    //     e.preventDefault();
-    //     $(this).find('.confirm-message').addClass('animate1');
-    //     $(this).find('.checkmark').addClass('animate1');
-    // });
-    $('#btn2').on('click', function(e){
-        e.preventDefault();
-        $(this).find('.confirm-message').addClass('animate2');
-        $(this).find('.checkmark').addClass('animate2');
-    });
-    // $('#btn3').on('click', function(e){
-    //     e.preventDefault();
-    //     $(this).find('.confirm-message').addClass('animate3');
-    //     $(this).find('.checkmark').addClass('animate3');
-    // });
-    // $('#btn4').on('click', function(e){
-    // e.preventDefault();
-    // $(this).find('.checkmark').addClass('animate4');
-    // });
-    // $('#reload').on('click', function(e){
-    //     e.preventDefault();
-    //     $('.message, .loader, .confirm-message, .checkmark').removeClass('animate animate1 animate2 animate3 animate4');
-    // });
+            $(this).find('.message').addClass('animate');
+            $(this).find('.loader').addClass('animate');
+
+            $.ajax({url: baseUrl+"dashboard/updateStatement/"+_statementId,
+                success: function(status){
+            }});
+        });
+        
+        $('#btn2').on('click', function(e){
+            e.preventDefault();
+            $(this).find('.confirm-message').addClass('animate2');
+            $(this).find('.checkmark').addClass('animate2');
+        });
     </script>

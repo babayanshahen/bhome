@@ -47,6 +47,36 @@ font-size: 16px;
 padding: 5px ;
 }
 </style>
+<link rel="stylesheet"  href="<?php echo base_url('assets/cropper-master/dist/cropper.css') ?>" >
+<script src="<?php echo base_url('assets/cropper-master/dist/cropper.js') ?>"></script>
+<script>
+    function crop() {
+        $("#image").cropper('getCroppedCanvas').toBlob(function (blob){
+            var formData = new FormData();
+
+            formData.append('croppedImage', blob);
+            $.ajax(baseUrl+'dashboard/updatePhoto', {
+                    method: "POST",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                success: function (status) {
+                  if(status){
+                    $("#upload-image").hide();
+                    $("#new-image").show();
+                    // location.reload(true);
+                    window.location.reload(true)
+                  }else{
+                    alert('error upload photo')
+                  }
+                },
+                error: function () {
+                  alert('Upload error');
+                }
+            });
+        })
+    }
+</script>
 <div class="view intro-2">
     <div class="custom-gradient">
         <div class="container">
@@ -57,7 +87,7 @@ padding: 5px ;
                             <div class="user-info">
                                 <a href="<?php echo base_url('dashboard') ?>">
                                 <?php if(!is_null($user->avatar)): ?>
-                                    <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" alt="" title="Upload Your Image">
+                                    <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>"  alt="" title="Upload Your Image">
                                 <?php else: ?>
                                     <img class="img-profile img-circle img-responsive center-block" src="<?php echo base_url('assets/img/profile/images.jpg') ?>" alt="avatar">
                                 <?php endif ?>
@@ -75,37 +105,34 @@ padding: 5px ;
                             
                         </div>
                         <div class="content-panel">
-                            <div class="content-header-wrapper">
-                                <h2 class="title"><?php echo $user->full_name?> Drive</h2>
-                            </div>
                             <div class="drive-wrapper drive-grid-view">
                                 <div class="grid-items-wrapper">
                                     <div class="container-fluid">
                                         <div class="row">
                                             <form action="<?php echo base_url('dashboard/updateUserParams')?>" method="POST" enctype="multipart/form-data" >
-                                                <div class="col-md-12">
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">
-                                                            <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                        </span>
-                                                        <input type="text" class="form-control" name="address" placeholder="Էլեկտրոնային հասցե" required="required" value="<?php echo $user->email ?>" readonly>
-                                                    </div>
-                                                </div>
-                                                <br>
+                                                    
                                                 <div class="row">
                                                     <div class="col-xs-3 profile-image" >
                                                         <?php if(!is_null($user->avatar)): ?>
-                                                        <img src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" class="image img-responsive img-circle" alt="Cinque Terre" style="width:204px;height:204px; " >
+                                                        <img  src="<?php echo base_url('assets/statements-img/user-'.$user->id.''.'/avatar/avatar_user_'.$user->id.'.jpg') ?>" class="image img-responsive img-circle" alt="Cinque Terre" style="width:204px;height:204px; " id='image'>
                                                             <?php else: ?>
-                                                        <img src="<?php echo base_url('assets/img/profile/profile-avatar.png')?>" class="image img-responsive img-circle" alt="Cinque Terre" style="width:204px;height:204px; " >
+                                                        <img  src="<?php echo base_url('assets/img/profile/profile-avatar.png')?>" class="image img-responsive img-circle" alt="Cinque Terre" style="width:204px;height:204px; " id='image'>
                                                         <?php endif ?>
                                                         <!-- <img src="img_avatar.png" alt="Avatar" class="image" style="width:100%"> -->
                                                         <div class="middle">
-                                                            <div class="text" onclick="$('#upload-avatar-image').click()">Նոր  նկար</div>
-                                                            <input type="file" style="display: none;" id="upload-avatar-image" name="upload-avatar-image" onchange="previewFile()" />
+                                                            <div class="text" onclick="$('#upload-avatar-image').click()" id="new-image">Նոր  նկար</div>
+                                                            <input type="file"  id="upload-avatar-image" name="upload-avatar-image" onchange="previewFile()" style='display:none' />
+                                                            <div onclick="crop()" id="upload-image" class="text" style='display:none' >Բեռնել</div>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-9">
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">
+                                                                <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                            </span>
+                                                            <input type="text" class="form-control" name="address" placeholder="Էլեկտրոնային հասցե" required="required" value="<?php echo $user->email ?>" readonly>
+                                                        </div>
+                                                        <br>
                                                         <div class="input-group">
                                                             <span class="input-group-addon">
                                                                 <i class="fa fa-info" aria-hidden="true"></i>
@@ -134,10 +161,10 @@ padding: 5px ;
                                                             <input type="password" class="form-control" name="c_new_password" placeholder="Կրկնել գաղտնաբառ" />
                                                         </div>
                                                         <br>
+                                                        <button class="btn bt-color1 btn-block" type="submit"> Թարմացնել</button>
                                                     </div>
                                                     
                                                 </div>
-                                                <button href="" class="btn btn-success btn-block" type="submit"> Թարմացնել</button>
                                                 <br>
                                             </form>
                                         </div>
@@ -158,6 +185,10 @@ function previewFile() {
     var reader = new FileReader();
     reader.addEventListener("load", function() {
         $(".image.img-responsive.img-circle").attr("src", reader.result);
+        // $(".image.img-responsive.img-circle").attr("id", 'image');
+        $("#image").cropper();
+        $("#new-image").hide();
+        $("#upload-image").show();
     }, false);
     if (file) {
         reader.readAsDataURL(file);

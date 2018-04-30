@@ -56,9 +56,11 @@ if (!function_exists('drawImage')) {
 
             if(is_file( (FCPATH.'assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).'.jpg'))
             {
+                // $link     = 'setSizeToPicture('.base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).'.jpg)';
+                $link = 'setSizeToPicture("'.base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).'")';
                 $content .=  
-                            "<div data-p='170.00'>
-                                <img data-u='image' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg' />
+                            "<div data-p='170.00' >
+                                <img data-u='image' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg' onload='$link' />
                                 <div data-u='thumb'>
                                     <img data-u='thumb' class='i' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg'  style='width: 95px;height: 48px;'/>
                                 </div>

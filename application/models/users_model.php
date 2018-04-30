@@ -73,6 +73,14 @@ class Users_model extends CI_Model{
             return $this->db->get_where( $this->userTbl ,array('email' => $email) ,1)->row();
         }
     }
+
+    public function getUserById($id=false)
+    {
+        if($id)
+        {
+            return $this->db->get_where( $this->userTbl ,array('id' => $id) ,1)->row();
+        }
+    }
     public function updateUser($vars)
     {
         // out($vars);

@@ -1,3 +1,43 @@
+<style>
+    
+
+.form-group input[type="radio"] {
+    display: none;
+}
+
+.form-group input[type="radio"] + .btn-group > label span {
+    width: 20px;
+}
+
+.form-group input[type="radio"] + .btn-group > label span:first-child {
+    display: none;
+}
+.form-group input[type="radio"] + .btn-group > label span:last-child {
+    display: inline-block;   
+}
+
+.form-group input[type="radio"]:checked + .btn-group > label span:first-child {
+    display: inline-block;
+}
+.form-group input[type="radio"]:checked + .btn-group > label span:last-child {
+    display: none;   
+}
+
+.btn.btn-default.active{
+    width: 140px !important;
+}
+
+.bt-color1{
+    background-color: #424f95;
+    color: white;
+}
+
+.bt-color1:hover{
+    background-color: #424f95;
+    color: white;
+}
+
+</style>
 <div class="view intro-2">
     <div class="custom-gradient">
         <div class="container">
@@ -25,30 +65,30 @@
                             <?php $this->load->view('dashboard-template/dashboard-side-bar') ?>
                         </div>
                         <div class="content-panel">
-                            <div class="content-header-wrapper">
-                                <h2 class="title">Upload</h2>
-                                <?php if ($this->session->userdata('add_statement_success')  ): ?>
-                                    <h2 class="title">
-                                        <?php echo $this->session->userdata('add_statement_success')?>
-                                    </h2>
-                                    <?php $this->session->unset_userdata('add_statement_success'); ?>
-                                <?php endif; ?>
-                                <?php if ($this->session->userdata('add_update_success')  ): ?>
-                                <h2 class="title">
-                                <?php echo $this->session->userdata('add_update_success')?>
-                                </h2>
-                                <?php $this->session->unset_userdata('add_update_success'); ?>
-                                <?php endif; ?>
-                                
-                                <div class="actions">
-                                    <?php if (!empty($EditStatementResult->id)): ?>
-                                        <a href="<?php echo base_url('dashboard/deleteStatement/'.$EditStatementResult->id) ?>" class="btn btn-danger">Հեռացնել</a>
-                                    <?php endif ?>
-
-                                    <!-- <a href="<?php echo base_url('dashboard')?>" class="btn btn-success upload_div"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a> -->
-                                </div>
-                            </div>
                             <div class="drive-wrapper drive-grid-view">
+                                <div class="content-header-wrapper">
+                                    <h2 class="title">Upload</h2>
+                                    <?php if ($this->session->userdata('add_statement_success')  ): ?>
+                                        <h2 class="title">
+                                            <?php echo $this->session->userdata('add_statement_success')?>
+                                        </h2>
+                                        <?php $this->session->unset_userdata('add_statement_success'); ?>
+                                    <?php endif; ?>
+                                    <?php if ($this->session->userdata('add_update_success')  ): ?>
+                                    <h2 class="title">
+                                    <?php echo $this->session->userdata('add_update_success')?>
+                                    </h2>
+                                    <?php $this->session->unset_userdata('add_update_success'); ?>
+                                    <?php endif; ?>
+                                    
+                                    <div class="actions">
+                                        <?php if (!empty($EditStatementResult->id)): ?>
+                                            <a href="<?php echo base_url('dashboard/deleteStatement/'.$EditStatementResult->id) ?>" class="btn btn-danger">Հեռացնել</a>
+                                        <?php endif ?>
+
+                                        <!-- <a href="<?php echo base_url('dashboard')?>" class="btn btn-success upload_div"><i class="fa fa-dashboard"></i> &nbsp;Dashboard</a> -->
+                                    </div>
+                                </div>
                                 <form action="<?php echo $action?>" method="POST" enctype="multipart/form-data">
                                     <input type="hidden"  name="id" value="<?php echo $EditStatementResult->id ?> ">
                                     <div class="input-group">
@@ -61,7 +101,67 @@
                                         <input  type="text" class="form-control" name="name" required="required" value="<?php echo $EditStatementResult->name?>"  />
                                     </div>
                                     <br>
-                                    <div class="diaxton">
+                                    <div class="container-fluid">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-3">
+                                                <div class="[ form-group ]">
+                                                    <input type="radio" name="sale-or-rent" id="sale" value="sale" autocomplete="off" <?php isCheced($EditStatementResult->sale) ?> />
+                                                    <div class="[ btn-group ]">
+                                                        <label for="sale" class="[ btn bt-color1 ]">
+                                                            <span class="[ glyphicon glyphicon-ok ]"></span>
+                                                            <span> </span>
+                                                        </label>
+                                                        <label for="sale" class="[ btn btn-default active ]">
+                                                            Վաճառք
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-3">
+                                                <div class="[ form-group ]">
+                                                    <input type="radio" name="sale-or-rent" id="rent" value="rent" autocomplete="off" <?php isCheced($EditStatementResult->rent) ?> />
+                                                    <div class="[ btn-group ]">
+                                                        <label for="rent" class="[ btn bt-color1 ]">
+                                                            <span class="[ glyphicon glyphicon-ok ]"></span>
+                                                            <span> </span>
+                                                        </label>
+                                                        <label for="rent" class="[ btn btn-default active ]">
+                                                            Վարձակալություն
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-3">
+                                                <div class="[ form-group ]">
+                                                    <input type="radio" name="individual-or-agency" id="individual" value="individual" autocomplete="off" <?php isCheced($EditStatementResult->individual) ?> />
+                                                    <div class="[ btn-group ]">
+                                                        <label for="individual" class="[ btn bt-color1 ]">
+                                                            <span class="[ glyphicon glyphicon-ok ]"></span>
+                                                            <span> </span>
+                                                        </label>
+                                                        <label for="individual" class="[ btn btn-default active ]">
+                                                            Անհատ
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6 col-md-3">
+                                                <div class="[ form-group ]">
+                                                    <input type="radio" name="individual-or-agency" id="agency" value="agency" autocomplete="off" <?php isCheced($EditStatementResult->agency) ?> />
+                                                    <div class="[ btn-group ]">
+                                                        <label for="agency" class="[ btn bt-color1 ]">
+                                                            <span class="[ glyphicon glyphicon-ok ]"></span>
+                                                            <span> </span>
+                                                        </label>
+                                                        <label for="agency" class="[ btn btn-default active ]">
+                                                            Գործակալություն
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="diaxton">
                                         <div class="col-md-2 margin-left-0">
                                             <span>Վաճառք</span>
                                             <input id="sale" type="radio" name="sale-or-rent" value="sale" <?php isCheced($EditStatementResult->sale) ?>/>
@@ -80,8 +180,7 @@
                                             <span >Գործակալություն</span>
                                             <input id="rent" type="radio"  name="individual-or-agency" value="agency"  <?php isCheced($EditStatementResult->agency) ?> >
                                         </div>
-                                    </div>
-                                    <br>
+                                    </div> -->
                                     <br>
                                     <div>
                                         <div class="input-group">
@@ -209,31 +308,31 @@
                                         <div class="col-xs-4">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                                <input  type="number" class="form-control" name="mobile_number_1" placeholder="(093)98-00-00" required="required" value="<?php echo $EditStatementResult->mobile_number_1 ?>">
+                                                <input  type="text" class="form-control" name="mobile_number_1" placeholder="<?php echo $EditStatementResult->mobile_number_1 ?>" required="required" value="<?php echo $EditStatementResult->mobile_number_1 ?>" onfocus="disableKeys(1)" onfocusout="enableKeys()" >
                                             </div>
                                         </div>
                                         <div class="col-xs-4">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                                <input  type="number" class="form-control" name="mobile_number_2" placeholder="093 98 00 00" value="<?php echo $EditStatementResult->mobile_number_2 ?>">
+                                                <input  type="text" class="form-control" name="mobile_number_2" placeholder="<?php echo $EditStatementResult->mobile_number_2 ?>" value="<?php echo $EditStatementResult->mobile_number_2 ?>"  onfocus="disableKeys(2)" onfocusout="enableKeys()">
                                             </div>
                                         </div>
                                         <div class="col-xs-4">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-phone"></i></span>
-                                                <input id="tel" type="number" name="mobile_number_3" class="form-control" name="tel" placeholder="093 98 00 00"  value="<?php echo $EditStatementResult->mobile_number_3 ?>">
+                                                <input id="tel" type="text" name="mobile_number_3" class="form-control" name="tel" placeholder="Արտերկիր +7 123 456-78-90"  value="<?php echo $EditStatementResult->mobile_number_3 ?>" >
                                             </div>
                                         </div>
                                     </div>
                                     <br>
                                    
                                     <?php if (isset($EditStatementResult->id) && !empty($EditStatementResult->id)): ?>
-                                    <div class="actions">
-                                        <button type="submit" class="btn btn-default update"><i class="fa fa-plus"></i> Թարմացնել</button>
-                                    </div>
+                                        <div class="actions">
+                                            <button type="submit" class="btn btn-block bt-color1 update"><i class="fa fa-plus"></i> Թարմացնել</button>
+                                        </div>
                                     <?php else: ?>
                                     <div class="actions">
-                                        <button type="submit" class="btn btn-success confirm"><i class="fa fa-plus"></i> Հաստատել</button>
+                                        <button type="submit" class="btn btn-block bt-color1 confirm"><i class="fa fa-plus"></i> Ավելացնել</button>
                                     </div>
                                     <?php endif ?>
                                     <!-- </div> -->
@@ -246,3 +345,63 @@
         </div>
     </div>
 </div>
+<script>
+    function disableKeys(param){
+        $(this).on("keydown",function (e) {
+            var _string = $( "input[name=mobile_number_" +param+ "]" ).val();
+            // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+                 // Allow: Ctrl+A, Command+A
+                (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+                 // Allow: home, end, left, right, down, up
+                (e.keyCode >= 35 && e.keyCode <= 40)) {
+                    // let it happen, don't do anything
+                    return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ( (e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105) || _string.length > 16) {
+                e.preventDefault();
+            }
+        });
+
+        $(this).on("keyup",function (e) {
+            if(e.keyCode != 8){
+                if($( "input[name=mobile_number_" +param+ "]" ).val().length == 3){
+                    var _value = $( "input[name=mobile_number_" +param+ "]" ).val();
+                    if(_value == '098' || _value == '077' || _value == '093' || _value == '094' || _value == '077'  || _value == '049' || _value == '043' || _value == '099' || _value == '096' || _value == '091' || _value == '055' || _value == '095' || _value == '041'){
+                        var _appendedValue = '( ' + _value + ' )'+' -';
+                    }
+                    $( "input[name=mobile_number_" +param+ "]" ).val(_appendedValue);
+                }
+                    // console.log($( "input[name=mobile_number_" +param+ "]" ).val().length);
+                if($( "input[name=mobile_number_" +param+ "]" ).val().length == 11){
+
+                var _second_value = $( "input[name=mobile_number_" +param+ "]" ).val();
+
+
+                var _appended_second_value =  _second_value +'-';
+                $( "input[name=mobile_number_" +param+ "]" ).val(_appended_second_value);
+
+
+                }
+
+                if($( "input[name=mobile_number_" +param+ "]" ).val().length == 14){
+                    
+                    var _second_value = $( "input[name=mobile_number_" +param+ "]" ).val();
+
+                    
+                    var _appended_second_value =  _second_value +'-';
+                    $( "input[name=mobile_number_" +param+ "]" ).val(_appended_second_value);
+
+
+                }
+
+            }
+        });
+        
+    }
+
+    function enableKeys(){
+        $(this).unbind('keydown').keydown();
+    }
+</script>

@@ -65,6 +65,14 @@ class Statement_model extends CI_Model {
 										)
 										->get()
 										->row();
+			$statement->user_params = $this->db->from("users")
+										->where(
+											array(
+												'id' => $statement->user_id
+											)
+										)
+										->get()
+										->row();
 
 		}
 		
@@ -135,7 +143,15 @@ class Statement_model extends CI_Model {
 										)
 										->get()
 										->row();
-										return $items;
+			$items->user_params = $this->db->from("users")
+										->where(
+											array(
+												'id' => $items->user_id
+											)
+										)
+										->get()
+										->row();
+			return $items;
 
 	}
 
@@ -293,6 +309,15 @@ class Statement_model extends CI_Model {
 											)
 											->get()
 											->row();
+				$statement->user_params = $this->db->from("users")
+										->where(
+											array(
+												'id' => $statement->user_id
+											)
+										)
+										->get()
+										->row();
+
 
 			}
 			return $statements;

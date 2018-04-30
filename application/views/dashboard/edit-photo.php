@@ -51,9 +51,6 @@ padding: 2px 16px;
                             <?php $this->load->view('dashboard-template/dashboard-side-bar') ?>
                         </div>
                         <div class="content-panel">
-                            <div class="content-header-wrapper">
-                                <h2 class="title"><?php echo $currentUser->full_name?> Drive</h2>
-                            </div>
                             <div class="drive-wrapper drive-grid-view">
                                 <div class="grid-items-wrapper">
                                     <div class="container-fluid">
@@ -118,7 +115,7 @@ $(function() {
                 success: function(data) {
                     _status = jQuery.parseJSON(data);
                     if(_status){
-                        location.reload();
+                        window.location.reload(true)
                         $(".status-text").html(
                             "<p>"+_imageKey+" update success</p>"
                             );
