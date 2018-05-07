@@ -519,6 +519,7 @@ class Statement_model extends CI_Model {
 		return $searchStatements;
 		die("permission");
 	}
+
 	public function setMainImage($id,$data)
 	{
 		$statement = $this->db->from($this->table)
@@ -535,6 +536,18 @@ class Statement_model extends CI_Model {
 			$this->db->update($this->table, $data);
 		}
 	}
+
+	// public function getMainImage($id)
+	// {
+	// 	return $this->db->from($this->table)
+	// 		->where(
+	// 				array(
+	// 					'id' => $id
+	// 				)
+	// 			)
+	// 		->get()
+	// 		->row()->main_image;
+	// }
 
 	public function changeMainImage($id,$data)
 	{

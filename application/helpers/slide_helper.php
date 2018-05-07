@@ -50,21 +50,20 @@ if (!function_exists('drawImage')) {
         // out($statement_images);
         $content = "";
 
-        foreach ($statement_images as $statement_image)
+        foreach ($statement_images as $value => $statement_image)
         {
             // out($statement_images);
 
             if(is_file( (FCPATH.'assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).'.jpg'))
             {
-                // $link     = 'setSizeToPicture('.base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).'.jpg)';
-                $link = 'setSizeToPicture("'.base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).'")';
-                $content .=  
-                            "<div data-p='170.00' >
-                                <img data-u='image' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg' onload='$link' />
-                                <div data-u='thumb'>
-                                    <img data-u='thumb' class='i' src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg'  style='width: 95px;height: 48px;'/>
-                                </div>
-                            </div>";
+                $link = base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).'.jpg';
+                $onclick =  "showImageLargeFormat('".$link."')";
+                // $content .=  
+                //             "<div class='column'>
+                //                         <img src='".base_url('assets/statements-img/user-'.$statement_user_id.'/'.$statement_id.'/'.$statement_image->key).".jpg' alt='Nature'  class='img-thumbnail' width='200' height='200'>
+                //                     </div>";
+                $value = ($value == 0) ? 'active'  : '';
+                $content .= "<div class='testing' onclick=".$onclick." style='background-image:url(".$link.")'></div>";
             }else{
                 $content .=  
                     "<div data-p='170.00'>
@@ -305,28 +304,28 @@ if (!function_exists('drawKeywords')) {
     {
       
     $text = "";
-    	$text   .="<ul style='list-style-type: none;margin-top:20px' class='pl-0'>";
+    	// $text   .="<ul style='list-style-type: none;margin-top:20px' class='pl-0'>";
     if ($statement->individual == "true") {
-        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+        $text .=    "<div class='col-md-6'>
                         Անհատ
-                    </li>";
+                    </div>";
     }
     elseif ($statement->individual == "false"){
-        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+        $text .=    "<div class='col-md-6'>
                         Գործակալություն
-                    </li>";
+                    </div>";
     }
 
 	if ($statement->sale == 'false')
 	{
-	    $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+	    $text .=    "<div class='col-md-6'>
 	                    Վարձակալություն
-	                </li>";
+	                </div>";
 	}
 	elseif ($statement->sale == "true"){
-	    $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+	    $text .=    "<div class='col-md-6'>
 	                    Վաճառք
-	                </li>";
+	                </div>";
 	}
     switch ($statement->valute) {
         case '1':
@@ -339,59 +338,60 @@ if (!function_exists('drawKeywords')) {
             $valute =  "EURO";
             break;
     }
-		$text .= 	"<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+		$text .= 	"<div class='col-md-6'>
                              $statement->price  $valute
-	            	</li>";
+	            	</div>";
 
 	if ( !(is_null($statement->address)) )
     {
-	    $text .= 	"<li class='btn btn-sm p2-color' style='font-size: 14px;'>
+	    $text .= 	"<div class='col-md-6'>
                              $statement->address
-	            	</li>";
+	            	</div>";
 	}
 
     if ( !(is_null($statement->state->name)) ) 
     {
-        $text .=    "<li class='btn btn-sm p2-color' style='font-size: 14px;'>
+        $text .=    "<div class='col-md-6'>
                             ".$statement->state->name."
-                    </li>";
+                    </div>";
     }
 	
 	if ( !(is_null($statement->size_floor)) ) {
 
-		$text .= 	"<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+		$text .= 	"<div class='col-md-6'>
 	                            $statement->size_floor Հարկանի
-	                        </li>";
+	                        </div>";
 	}
 
     if ( !(is_null($statement->type_build)) ) {
 
-        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+        $text .=    "<div class='col-md-6'>
                                ".$statement->type_build->type_build." 
-                            </li>";
+                            </div>";
     }
 
 	if ( !(is_null($statement->floor)) && (int)$statement->floor != 0 )
 	{
-		$text .= 	"<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+		$text .= 	"<div class='col-md-6'>
 	                            Գնտվում է շենքի ".(int)$statement->floor." -րդ հարկում
-	                        </li>";
+	                        </div>";
 	}
 
     if ( !(is_null($statement->size_room)) )
     {
-        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+        $text .=    "<div class='col-md-6'>
                                 Սենյակների քանակը - ".(int)$statement->size_room."
-                            </li>";
+                            </div>";
     }
 
     if ( !(is_null($statement->kind_build)) )
     {
-        $text .=    "<li class='btn btn-sm  p2-color' style='font-size: 14px;'>
+        $text .=    "<div class='col-md-6'>
                                 ".$statement->kind_build->kind_build."
-                            </li>";
+                            </div>";
     }
 
     echo $text;
+    
     }
 }

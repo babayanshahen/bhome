@@ -34,6 +34,10 @@ border-radius: 4px;
 /*margin: 10% auto;*/
 text-align: center;
 padding: 0 0 0 0 ;
+margin-left: 15px;
+}
+.m-b-s{
+    margin-bottom: 5px;
 }
 .save-btn {
 background-color: #424f95;
@@ -138,13 +142,22 @@ animation-fill-mode: forwards;
 .btn.btn-edit{
     background-color: #FF7D85;
     color: white;
-    padding: 7px 33px 5px 31px;
+    padding: 7px 34px 7px 11px;
 }
 .custom-card img{
     height: 160px;
 }
 .mb-4{
     margin-bottom: 1.5rem!important;
+}
+.btn-edit-1:hover{
+    color:white !important;
+    background-color: #8D9AFF !important;
+}
+
+.btn-edit-1:focus{
+    color:white !important;
+    background-color: #8D9AFF !important;
 }
 
 @keyframes fade-in {
@@ -231,13 +244,13 @@ to {top: 11px; opacity: 1;}
                                                         <img src="<?php echo  base_url('assets/statements-img/default-image/default')?>.png" style="width:100%" >
                                                         <?php endif ?>
                                                         <div class="custom-container">
-                                                            <h4><b><?php echo  cutString($statement->name,28) ?></b></h4>
+                                                            <h4><b><?php echo  cutString($statement->name,15) ?></b></h4>
                                                             <!-- <p><?php //echo cutString($statement->description , 50) ?></p> -->
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-6">
-                                                                <div class="btn btn-update custom-container">
-                                                                    <button class="save-btn" id="btn2" data-statement-id="<?php echo $statement->id  ?>">
+                                                                <div class="btn btn-update custom-container m-b-s">
+                                                                    <button class="save-btn btn-edit-1" id="btn2" data-statement-id="<?php echo $statement->id  ?>">
                                                                     <div class="message">Թարմացնել</div>
                                                                     <div class="loader">
                                                                         <svg x="0px" y="0px" width="25px" height="25px" viewBox="0 0 50 50" style="enable-background:new 0 0 50 5 0;" xml:space="preserve">
@@ -252,7 +265,7 @@ to {top: 11px; opacity: 1;}
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
-                                                                <a href="<?php echo base_url('dashboard/upload/'.$statement->id) ?>" class="btn btn-edit">Փոփոխել</a>
+                                                                <a href="<?php echo base_url('dashboard/upload/'.$statement->id) ?>" class="btn bt-color1 btn-edit-1 m-b-s">Փոփոխել</a>
                                                             </div>
                                                         <!-- <a href="<?php echo base_url('dashboard/updateStatement/'.$statement->id) ?>" class="btn btn-success">Update</a> -->
                                                 </div>

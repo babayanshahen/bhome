@@ -86,15 +86,17 @@ class Main extends CI_Controller {
 												"<div class='card-body'>".
 												"<h4 class='card-title p2-color'>".cutString($result->name , 15,' ...')."</h4>".
 												"<p class='card-text'>".cutString($result->description,15,' ...')."</p>".
-												"<button type='button' class='btn bt-color1 btn-md' data-toggle='modal' data-target='#exampleModal-".$result->id."'>Ավելին</button>".
+												"<button type='button' class='btn bt-color1 btn-md statement-click' data-statement-id='$result->id' onclick='showStatement($result->id)'>Ավելին</button>".
 											"</div>".
 											"</div>".
-										"</div>".$this->load->view('items/statement-details-modal',array(
-																				"statement_id"		=>	(int)$result->id,
-																				"statement"			=>	$result,
-																				"statement_user_id"	=> $result->user_id
-																				),true
-					);
+										"</div>";
+
+					// 					$this->load->view('items/statement-details-modal',array(
+					// 															"statement_id"		=>	(int)$result->id,
+					// 															"statement"			=>	$result,
+					// 															"statement_user_id"	=> $result->user_id
+					// 															),true
+					// );
 					$result->content 		= $resultContent;
 					$result->pagination 	= $countNewstatements ;
 					$result->currentPage 	= $currentPage;
@@ -102,5 +104,15 @@ class Main extends CI_Controller {
 			}
 			echo json_encode($results);
 		
+	}
+	public function getMainImageUrl($id=false){
+		$this->load->model('statement_model');
+		$statement = $this->statement_model->getStatements($id);
+		// out(base_url('/assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image));
+		echo json_encode(
+			array(
+				'link'	=> base_url('/assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image.'.jpg')
+			)
+		);
 	}
 }

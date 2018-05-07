@@ -31,8 +31,6 @@
 <script type="text/javascript" src="<?php  echo base_url('assets/js/mdb.min.js')?>"></script>
 <script type="text/javascript" src="<?php  echo base_url('assets/js/myjs.js')?>"></script>
 <script type="text/javascript" src="<?php  echo base_url('assets/js/carusel.js')?>"></script>
-<!-- <script src='http://bhome.art/assets/js/jssor.slider-27.1.0.min.js' type='text/javascript'></script> -->
-<!-- <script type='text/javascript' src='http://bhome.art/assets/js/sor.js'></script> -->
 <script>
 	$( ".target-change" ).change(function() {
 
@@ -150,7 +148,6 @@
             url: baseUrl+"main/getNewStatements/"+per_page+'/'+page+'/'+currentPage,
 		    dataType: 'json',
 	        data: data,
-		    // processData: false,
 		    success: function(newStatements){
 	            $("#content-all-statement").html('');
 
@@ -188,21 +185,19 @@
 		    }
 	      
         });
-
 	}
 
-	function getTopStatementModal(id){
-		$.ajax({
-            url: baseUrl+"main/showNewStatement/"+id,
-		    dataType: 'json',
-	        // data:data,
-	        success: function(content) {
-	        	$("#carouselExamples").append(content);
-	        	// $("#for-trigger-click").trigger('click');
-	        }
+	// function getTopStatementModal(id){
+	// 	$.ajax({
+ //            url: baseUrl+"main/showNewStatement/"+id,
+	// 	    dataType: 'json',
+	//         success: function(content) {
+	//         	$("#carouselExamples").append(content);
+	//         }
 	           
-        });
-	}
+ //        });
+	// }
+	
 	$("#organization-click").click(function() {
 		$('input:radio[value=organisation]').prop('checked', true);
 	});
@@ -210,6 +205,22 @@
 	$( "#individual-click" ).click(function() {
 		$('input:radio[value=individual]').prop('checked', true);
 	});
+	
+	function showStatement(statemenId){
+        var oldContent  = $("#content-all-statement").html()
+		
+		$.ajax({
+			url: baseUrl+"statements/showUserStatement/"+statemenId,
+			dataType: 'json',
+			success: function(content){
+        		$("#content-all-statement").html(content);
+        		$("#go-back").on('click',function(){
+        			$("#content-all-statement").html(oldContent);
+        		});
+			}
+		});
+
+	}
 </script>
 </body>
 </html>

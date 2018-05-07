@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 		<link href="<?php  echo base_url('assets/css/bootstrap.min.css')?>" rel="stylesheet">
 		<link href="<?php  echo base_url('assets/css/mdb.min.css')?>" rel="stylesheet">
-		<link href="<?php  echo base_url('assets/css/style.css')?>" rel="stylesheet">
+		<link href="<?php  echo base_url('assets/css/style.css')?>" rel="stylesheet" >
 		<link href="<?php  echo base_url('assets/css/animate.css')?>" rel="stylesheet">
 		<script type="text/javascript" src="<?php  echo base_url('assets/js/jquery-3.2.1.min.js')?>"></script>
 	</head>
@@ -57,5 +57,3 @@
 					</div>
 				</div>
 			</nav>
-			<script type="text/javascript" src="<?php echo base_url('assets/js/jssor.slider-27.1.0.min.js') ?>"></script>
-			<script type="text/javascript" src="<?php echo base_url('assets/js/sor.js')?>"></script>
