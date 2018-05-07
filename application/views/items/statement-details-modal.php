@@ -139,10 +139,12 @@
 				</button>
 			</a>
 			<button class="btn bt-color1 button-back float-right" id="go-back" onmouseover='onOver()' onmouseout='onOut()'> X </button>
-			<h3 class="modal-title p2-color"><?php echo $statement->name ?></h3>
+			<h3 class="modal-title p2-color mt-3"><?php echo $statement->name ?></h3>
 			<div class="row statement-description">
 				<div class="col-md-12">
-					<?php echo $statement->description ;?>
+					<p class="mb-3">
+						<?php echo $statement->description ;?>
+					</p>
 				</div>
 			</div>
 			<div class="row" id="row-keyword">
