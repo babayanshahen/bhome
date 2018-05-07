@@ -17,9 +17,10 @@
 		<?php foreach ($statements as $statement): ?>
 		<div class="col-6 col-sm-3">
 			<div class="card mb-4">
-				<div class="view overlay" onclick="showStatement(<?php echo (int)$statement->id?>)">
-					<?php if( is_file( (FCPATH.'assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image.'.jpg') ) ): ?>
-					<img class="img-fluid" src="<?php echo base_url('assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image.'.jpg')?>" alt="<?php echo $statement->name.' '.$statement->description ?>" >
+				<?php if( is_file( (FCPATH.'assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image.'.jpg') ) ): ?>
+					<?php $url = base_url('assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image.'.jpg'); ?>
+					<div class="view overlay" onclick="showStatement(<?php echo (int)$statement->id?>)" style="background-image: url('<?php echo $url ?>');height: 150px;background-size: cover;" >
+					<!-- <img class="img-fluid" src="<?php  ?>" alt="<?php echo $statement->name.' '.$statement->description ?>" > -->
 					<?php else: ?>
 					<img class="img-fluid" src="<?php echo base_url('assets/statements-img/default-image/default').".png"?>" alt="Card image cap">
 					<?php endif; ?>

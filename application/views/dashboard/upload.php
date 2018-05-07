@@ -38,6 +38,14 @@
 }
 
 </style>
+<!-- include libraries(jQuery, bootstrap) -->
+<!-- <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet"> -->
+<!-- <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>  -->
+<!-- <script src="http://netdna.bootstarpcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>  -->
+
+<!-- include summernote css/js -->
+<link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
 <div class="view intro-2">
     <div class="custom-gradient">
         <div class="container">
@@ -274,8 +282,8 @@
                                         </div>
                                     </div>
                                     <br>
-                                    <div class="input-group">
-                                        <textarea type="text" class="form-control" name="description"  rows="5" cols="120" placeholder="Նկարագրություն"><?php echo $EditStatementResult->description ?></textarea>
+                                    <div class="input-group" style="width: 100%;">
+                                        <textarea type="text" id="summernote" class="form-control" name="description"  rows="5" cols="120" placeholder="Նկարագրություն"><?php echo $EditStatementResult->description ?></textarea>
                                     </div>
                                     <br>
                                     <?php if (empty($EditStatementResult->id)): ?>
@@ -404,4 +412,7 @@
     function enableKeys(){
         $(this).unbind('keydown').keydown();
     }
+    $(document).ready(function() {
+      $('#summernote').summernote();
+    });
 </script>
