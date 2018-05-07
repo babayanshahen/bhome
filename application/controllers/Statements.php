@@ -169,4 +169,23 @@ class Statements extends CI_Controller {
 			redirect('statements');
 		}
 	}
+	public function showUserStatement($id=false){
+		
+		$this->load->model('statement_model');
+
+		if($id){
+			$statement  = $this->statement_model->getStatementWithAll($id);
+
+			echo json_encode($this->load->view('items/statement-details-modal',array(
+																// "statement_id"	=>	(int)$statement->id,
+																// "statement_user_id"	=>	(int)$statement->user_id,
+																// "statement"		=>	$statement
+																"statement_id"	=>	1,
+																"statement_user_id"	=> 2,
+																"statement"		=>	$statement
+															),true
+				)
+			);
+		}
+	}
 }
