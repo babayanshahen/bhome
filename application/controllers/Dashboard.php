@@ -163,7 +163,7 @@ class Dashboard extends CI_Controller {
 			'mobile_number_2' => $this->input->post('mobile_number_2'),
 			'mobile_number_3' => $this->input->post('mobile_number_3')
 		);
-		
+
 		if( $this->input->post("sale-or-rent") == "sale" ){
 			$vars["sale"] ='true';
 			$vars["rent"] ='false';
@@ -216,7 +216,7 @@ class Dashboard extends CI_Controller {
 								"description"		=> 	$this->input->post("description"),
 								"individual"		=>	$this->input->post("individual-or-agency") == 'individual' ? 'true' : "false",
 								"agency"			=>	$this->input->post("individual-or-agency") == 'agency' ? 'true' : "false",
-								"area"				=>	$this->input->post("name"),
+								"area"				=>	$this->input->post("area"),
 								"sale"				=>	$this->input->post("sale-or-rent") == 'sale' ? 'true' : "false",
 								"rent"				=>	$this->input->post("sale-or-rent") == 'rent' ? 'true' : "false",
 								"price"				=>	$this->input->post("price"),
@@ -250,7 +250,7 @@ class Dashboard extends CI_Controller {
 
 	        $dataInfo = $this->upload->data();
 
-	        if( isset($dataInfo['raw_name']) && !empty($dataInfo['raw_name']) )
+	        if( isset($dataInfo) && isset($dataInfo['raw_name']) && !empty($dataInfo['raw_name']) )
 	        {
 		    	$insertItems = array(
 		    						"statement_id" 	=>	$statemnetIsdertId,
@@ -258,19 +258,21 @@ class Dashboard extends CI_Controller {
 		    						"key" 			=>	 $dataInfo['raw_name']
 		    					);
 		    	$this->statement_model->setMainImage($statemnetIsdertId,array('main_image' =>$dataInfo['raw_name']));
+		    	$this->statement_images_model->insert($insertItems);
+
+		        $this->session->set_userdata('add_statement_success', 
+		        	"<div class='alert alert-success fade in alert-dismissible' style='margin-top:18px;'>
+		    			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
+		    			<strong>Շնորհակալություն </strong>  Ձեր  հայտարարությունը ավելացված է մեր կայքում
+					</div><script>window.setTimeout(function() {
+					    $('.alert').fadeTo(500, 0).slideUp(500, function(){
+					        $(this).remove(); 
+					    });
+					}, 4000);</script>");
+	        }else{
+	        	die('insertItems');
 	        }
 
-	    	$this->statement_images_model->insert($insertItems);
-
-	        $this->session->set_userdata('add_statement_success', 
-	        	"<div class='alert alert-success fade in alert-dismissible' style='margin-top:18px;'>
-	    			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
-	    			<strong>Շնորհակալություն </strong>  Ձեր  հայտարարությունը ավելացված է մեր կայքում
-				</div><script>window.setTimeout(function() {
-				    $('.alert').fadeTo(500, 0).slideUp(500, function(){
-				        $(this).remove(); 
-				    });
-				}, 4000);</script>");
 	        // out($dataInfo['raw_name'];
 	        // die();
 	    }
