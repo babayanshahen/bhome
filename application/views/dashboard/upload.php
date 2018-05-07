@@ -227,7 +227,7 @@
                                     <br>
                                     <div class="input-group">
                                         <span class="input-group-addon">Հարկը</span>
-                                        <select class="form-control" name="floor">
+                                        <select class="form-control" name="floor" required>
                                             <option value="">Նշել հարկը</option>
                                             <option value="1" <?php echo   selectOldValue(1,$EditStatementResult->floor) ?> >1</option>
                                             <option value="2" <?php echo   selectOldValue(2,$EditStatementResult->floor) ?> >2</option>

@@ -84,7 +84,7 @@ class Main extends CI_Controller {
 													"</div>".
 												"</div>".
 												"<div class='card-body'>".
-												"<h4 class='card-title p2-color'>".cutString($result->name , 15,' ...')."</h4>".
+												"<h5 class='card-title p2-color'>".cutString($result->name , 15,' ...')."</h5>".
 												"<p class='card-text'>".cutString($result->description,15,' ...')."</p>".
 												"<button type='button' class='btn bt-color1 btn-md statement-click' data-statement-id='$result->id' onclick='showStatement($result->id)'>Ավելին</button>".
 											"</div>".

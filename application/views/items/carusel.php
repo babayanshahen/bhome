@@ -10,12 +10,12 @@
 
 				<?php foreach ($topItems as $value => $topItem ): ?>
 					<?php //out($topItem->item_details->id) ?>
-					<div class="carousel-item col-md-3 <?php echo ($value == 0) ? 'active'  : ''  ?>" onclick="getTopStatementModal('<?php echo $topItem->item_details->id ?>')">
+					<div class="carousel-item col-md-3 <?php echo ($value == 0) ? 'active'  : ''  ?>" >
 							<div class="card mb-4">
 								<?php 
 									$url = base_url('assets/statements-img/user-'.$topItem->item_details->user_id.'/'.$topItem->item_details->id.'/'.$topItem->item_details->main_image.'.jpg') 
 								?>
-								<div class="view overlay" style="background-image: url('<?php echo $url ?>');height: 150px;background-size: cover;">
+								<div class="view overlay cursor" style="background-image: url('<?php echo $url ?>');height: 150px;background-size: cover;" onclick="showStatement(<?php echo $topItem->item_details->id ?>)" >
 									<!-- <div class="mask rgba-white-slight" ></div> -->
 								</div>
 								

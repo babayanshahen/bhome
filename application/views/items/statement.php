@@ -19,7 +19,7 @@
 			<div class="card mb-4">
 				<?php if( is_file( (FCPATH.'assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image.'.jpg') ) ): ?>
 					<?php $url = base_url('assets/statements-img/user-'.$statement->user_id.'/'.$statement->id.'/'.$statement->main_image.'.jpg'); ?>
-					<div class="view overlay" onclick="showStatement(<?php echo (int)$statement->id?>)" style="background-image: url('<?php echo $url ?>');height: 150px;background-size: cover;" >
+					<div class="view overlay cursor" onclick="showStatement(<?php echo (int)$statement->id?>)" style="background-image: url('<?php echo $url ?>');height: 150px;background-size: cover;" >
 					<!-- <img class="img-fluid" src="<?php  ?>" alt="<?php echo $statement->name.' '.$statement->description ?>" > -->
 					<?php else: ?>
 					<img class="img-fluid" src="<?php echo base_url('assets/statements-img/default-image/default').".png"?>" alt="Card image cap">
@@ -31,7 +31,7 @@
 					<!-- </a> -->
 				</div>
 				<div class="card-body">
-					<h4 class="card-title p2-color"><?php echo cutString($statement->name,10) ?></h4>
+					<h5 class="card-title p2-color"><?php echo cutString($statement->name,10) ?></h5>
 					<p class="card-text"><?php echo cutString($statement->description,10," ...") ?></p>
 					<button type="button" class="btn bt-color1 btn-md statement-click" onclick='showStatement(<?php echo (int)$statement->id?>)'>Ավելին
 					</button>
