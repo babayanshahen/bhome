@@ -239,43 +239,44 @@ class Dashboard extends CI_Controller {
 
 		for($i=0; $i<$cpt; $i++)
 		{
-			$_FILES['pro-image']['name']= $files['pro-image']['name'][$i];
-			$_FILES['pro-image']['type']= $files['pro-image']['type'][$i];
-			$_FILES['pro-image']['tmp_name']= $files['pro-image']['tmp_name'][$i];
-			$_FILES['pro-image']['error']= $files['pro-image']['error'][$i];
-			$_FILES['pro-image']['size']= $files['pro-image']['size'][$i];    
+			if(!empty($files['pro-image']['name'][$i])){
+				$_FILES['pro-image']['name']= $files['pro-image']['name'][$i];
+				$_FILES['pro-image']['type']= $files['pro-image']['type'][$i];
+				$_FILES['pro-image']['tmp_name']= $files['pro-image']['tmp_name'][$i];
+				$_FILES['pro-image']['error']= $files['pro-image']['error'][$i];
+				$_FILES['pro-image']['size']= $files['pro-image']['size'][$i];    
 
-	        $this->upload->initialize( $this->set_upload_options($statemnetIsdertId) );
-	        $this->upload->do_upload('pro-image');
+		        $this->upload->initialize( $this->set_upload_options($statemnetIsdertId) );
+		        $this->upload->do_upload('pro-image');
 
-	        $dataInfo = $this->upload->data();
+		        $dataInfo = $this->upload->data();
 
-	        if( isset($dataInfo) && isset($dataInfo['raw_name']) && !empty($dataInfo['raw_name']) )
-	        {
-		    	$insertItems = array(
-		    						"statement_id" 	=>	$statemnetIsdertId,
-		    						// "src" 			=>	thisUserId().'_st_'.($i+1) ,
-		    						"key" 			=>	 $dataInfo['raw_name']
-		    					);
-		    	$this->statement_model->setMainImage($statemnetIsdertId,array('main_image' =>$dataInfo['raw_name']));
-		    	$this->statement_images_model->insert($insertItems);
+		        if( isset($dataInfo) && isset($dataInfo['raw_name']) && !empty($dataInfo['raw_name']) )
+		        {
+			    	$insertItems = array(
+			    						"statement_id" 	=>	$statemnetIsdertId,
+			    						// "src" 			=>	thisUserId().'_st_'.($i+1) ,
+			    						"key" 			=>	 $dataInfo['raw_name']
+			    					);
+			    	$this->statement_model->setMainImage($statemnetIsdertId,array('main_image' =>$dataInfo['raw_name']));
+			    	$this->statement_images_model->insert($insertItems);
 
-		        $this->session->set_userdata('add_statement_success', 
-		        	"<div class='alert alert-success fade in alert-dismissible' style='margin-top:18px;'>
-		    			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
-		    			<strong>Շնորհակալություն </strong>  Ձեր  հայտարարությունը ավելացված է մեր կայքում
-					</div><script>window.setTimeout(function() {
-					    $('.alert').fadeTo(500, 0).slideUp(500, function(){
-					        $(this).remove(); 
-					    });
-					}, 4000);</script>");
-	        }else{
-	        	die('insertItems');
-	        }
+			        $this->session->set_userdata('add_statement_success', 
+			        	"<div class='alert alert-success fade in alert-dismissible' style='margin-top:18px;'>
+			    			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
+			    			<strong>Շնորհակալություն </strong>  Ձեր  հայտարարությունը ավելացված է մեր կայքում
+						</div><script>window.setTimeout(function() {
+						    $('.alert').fadeTo(500, 0).slideUp(500, function(){
+						        $(this).remove(); 
+						    });
+						}, 4000);</script>");
+		        }
+			}
 
 	        // out($dataInfo['raw_name'];
 	        // die();
 	    }
+	        	// die('insertItems');
 
 	    
 	    redirect('dashboard/upload');
