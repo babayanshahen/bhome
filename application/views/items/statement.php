@@ -31,8 +31,8 @@
 					<!-- </a> -->
 				</div>
 				<div class="card-body">
-					<h4 class="card-title p2-color"><?php echo cutString($statement->name,10) ?></h4>
-					<p class="card-text"><?php echo cutString($statement->description,10," ...") ?></p>
+					<p style="font-size: 20px;height: 35px;overflow: hidden;" class="card-title p2-color" ><?php echo cutString($statement->name,20) ?></p>
+						<?php //echo $statement->description ?>
 					<button type="button" class="btn bt-color1 btn-md statement-click" onclick='showStatement(<?php echo (int)$statement->id?>)'>Ավելին
 					</button>
 				</div>

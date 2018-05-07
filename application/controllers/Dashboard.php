@@ -153,7 +153,7 @@ class Dashboard extends CI_Controller {
 			'kind_build' => $this->input->post('kind_build'),
 			'type_build' => $this->input->post('type_build'),
 			'size_room' => $this->input->post('size_room'),
-			'area' => $this->input->post('size_room'),
+			'area' => $this->input->post('area'),
 			'floor' => empty($this->input->post("floor")) ? null : $this->input->post("floor"),
 			'size_floor' =>  empty($this->input->post("size_floor")) ? null : $this->input->post("size_floor"),
 			'price' =>  $this->input->post('price'),
@@ -163,7 +163,7 @@ class Dashboard extends CI_Controller {
 			'mobile_number_2' => $this->input->post('mobile_number_2'),
 			'mobile_number_3' => $this->input->post('mobile_number_3')
 		);
-
+		
 		if( $this->input->post("sale-or-rent") == "sale" ){
 			$vars["sale"] ='true';
 			$vars["rent"] ='false';
