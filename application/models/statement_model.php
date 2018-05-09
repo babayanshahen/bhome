@@ -118,19 +118,22 @@ class Statement_model extends CI_Model {
 					)
 					->get()
 					->row();
+			$type_build  =	$items->type_build;
+			$kind_build  =	$items->kind_build;
 
 			$items->state = $this->db->from("states")
 										->where(
 											array(
-												'value' => $items->state
+												'value' => (int)$items->state
 											)
 										)
 										->get()
 										->row();
+
 			$items->type_build = $this->db->from("type_builds")
 										->where(
 											array(
-												'type_build' => $items->type_build
+												'id' => $type_build
 											)
 										)
 										->get()
@@ -138,7 +141,7 @@ class Statement_model extends CI_Model {
 			$items->kind_build = $this->db->from("kind_builds")
 										->where(
 											array(
-												'kind_build' => $items->type_build
+												'id' => $kind_build
 											)
 										)
 										->get()

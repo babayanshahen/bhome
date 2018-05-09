@@ -6,7 +6,7 @@ class Dashboard extends CI_Controller {
 		parent::__construct();
 		if(!isUserLoggedIn())
 		{
-			die("permission error");
+			redirect('main');
 		}
 	}
 
@@ -115,6 +115,7 @@ class Dashboard extends CI_Controller {
 		$emptyState->address = '';
 		$emptyState->type_build = '';
 		$emptyState->floor = '';
+		$emptyState->floor_all = '';
 		$emptyState->size_room = '';
 		$emptyState->size_floor = '';
 		$emptyState->valute = '';
@@ -226,6 +227,7 @@ class Dashboard extends CI_Controller {
 								"type_build"		=>	$this->input->post("type_build"),
 								"size_room"			=>	empty($this->input->post("size_room")) ? null : $this->input->post("size_room"),
 								"floor"				=>	empty($this->input->post("floor")) ? null : $this->input->post("floor"),
+								"floor_all"			=>	empty($this->input->post("floor_all")) ? null : $this->input->post("floor_all"),
 								"size_floor"		=>	empty($this->input->post("size_floor")) ? null : $this->input->post("size_floor"),
 								"valute"			=>	$this->input->post("valute"),
 								"mobile_number_1"	=>	$this->input->post("mobile_number_1"),
@@ -233,7 +235,6 @@ class Dashboard extends CI_Controller {
 								"mobile_number_3"	=>	$this->input->post("mobile_number_3"),
 								"time"				=>	time()
 							);
-
 		$statemnetIsdertId = $this->statement_model->insertNewStatement($insertItemData);
 
 
@@ -250,7 +251,7 @@ class Dashboard extends CI_Controller {
 
 	        $dataInfo = $this->upload->data();
 
-	        if( isset($dataInfo['raw_name']) && !empty($dataInfo['raw_name']) )
+	        if( isset($dataInfo) &&  isset($dataInfo['raw_name']) && !empty($dataInfo['raw_name']) )
 	        {
 		    	$insertItems = array(
 		    						"statement_id" 	=>	$statemnetIsdertId,
@@ -258,25 +259,22 @@ class Dashboard extends CI_Controller {
 		    						"key" 			=>	 $dataInfo['raw_name']
 		    					);
 		    	$this->statement_model->setMainImage($statemnetIsdertId,array('main_image' =>$dataInfo['raw_name']));
+	    		$this->statement_images_model->insert($insertItems);
+		        $this->session->set_userdata('add_statement_success', 
+		        	"<div class='alert alert-success fade in alert-dismissible' style='margin-top:18px;'>
+		    			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
+		    			<strong>Շնորհակալություն </strong>  Ձեր  հայտարարությունը ավելացված է մեր կայքում
+					</div><script>window.setTimeout(function() {
+					    $('.alert').fadeTo(500, 0).slideUp(500, function(){
+					        $(this).remove(); 
+					    });
+					}, 4000);</script>");
 	        }
-
-	    	$this->statement_images_model->insert($insertItems);
-
-	        $this->session->set_userdata('add_statement_success', 
-	        	"<div class='alert alert-success fade in alert-dismissible' style='margin-top:18px;'>
-	    			<a href='#' class='close' data-dismiss='alert' aria-label='close' title='close'>×</a>
-	    			<strong>Շնորհակալություն </strong>  Ձեր  հայտարարությունը ավելացված է մեր կայքում
-				</div><script>window.setTimeout(function() {
-				    $('.alert').fadeTo(500, 0).slideUp(500, function(){
-				        $(this).remove(); 
-				    });
-				}, 4000);</script>");
-	        // out($dataInfo['raw_name'];
-	        // die();
 	    }
 
 	    
-	    redirect('dashboard/upload');
+	    // redirect('dashboard/upload');
+	    redirect('dashboard');
 	}
 
 	private  function is_dir_empty($dir)

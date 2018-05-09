@@ -61,7 +61,7 @@ $("#login").submit(function(event) {
 				}, 500);
 				
 				window.setTimeout(function() {
-					window.location.replace(baseUrl+'/dashboard');
+					window.location.replace(baseUrl+'dashboard');
                 }, 3000	);
         	}else{
         		$("#defaultForm-password").val('');

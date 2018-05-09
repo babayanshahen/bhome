@@ -302,29 +302,28 @@ if (!function_exists('drawTypeofValue')) {
 if (!function_exists('drawKeywords')) {
     function drawKeywords($statement)
     {
-      
     $text = "";
     	// $text   .="<ul style='list-style-type: none;margin-top:20px' class='pl-0'>";
     if ($statement->individual == "true") {
         $text .=    "<div class='col-md-6'>
-                        Անհատ
+                        <p class='set-center-padding'>Անհատ</p>
                     </div>";
     }
     elseif ($statement->individual == "false"){
         $text .=    "<div class='col-md-6'>
-                        Գործակալություն
+                        <p class='set-center-padding'>Գործակալություն</p>
                     </div>";
     }
 
 	if ($statement->sale == 'false')
 	{
 	    $text .=    "<div class='col-md-6'>
-	                    Վարձակալություն
+	                    <p class='set-center-padding'>Վարձակալություն</p>
 	                </div>";
 	}
 	elseif ($statement->sale == "true"){
 	    $text .=    "<div class='col-md-6'>
-	                    Վաճառք
+	                    <p class='set-center-padding'>Վաճառք</p>
 	                </div>";
 	}
     switch ($statement->valute) {
@@ -339,55 +338,55 @@ if (!function_exists('drawKeywords')) {
             break;
     }
 		$text .= 	"<div class='col-md-6'>
-                             $statement->price  $valute
+                             <p class='set-center-padding'><i class='fa fa-money'></i> $statement->price  $valute</p>
 	            	</div>";
 
 	if ( !(is_null($statement->address)) )
     {
 	    $text .= 	"<div class='col-md-6'>
-                             $statement->address
+                             <p class='set-center-padding'><i class='fa fa-map-marker'></i> $statement->address</p>
 	            	</div>";
 	}
 
     if ( !(is_null($statement->state->name)) ) 
     {
         $text .=    "<div class='col-md-6'>
-                            ".$statement->state->name."
+                            <p class='set-center-padding'><i class='fa fa-map'></i> ".$statement->state->name."</p>
                     </div>";
     }
 	
 	if ( !(is_null($statement->size_floor)) ) {
 
 		$text .= 	"<div class='col-md-6'>
-	                            $statement->size_floor Հարկանի
+	                            <p class='set-center-padding'>$statement->size_floor Հարկանի</p>
 	                        </div>";
 	}
 
+    // out($statement->type_build);
     if ( !(is_null($statement->type_build)) ) {
-
         $text .=    "<div class='col-md-6'>
-                               ".$statement->type_build->type_build." 
+                                <p class='set-center-padding'><i class='fa fa-building'></i> ".$statement->type_build->type_build."</p> 
                             </div>";
     }
 
 	if ( !(is_null($statement->floor)) && (int)$statement->floor != 0 )
 	{
 		$text .= 	"<div class='col-md-6'>
-	                            Գնտվում է շենքի ".(int)$statement->floor." -րդ հարկում
+	                            <p class='set-center-padding'> Հարկ - ".(int)$statement->floor."/".$statement->floor_all." </p>
 	                        </div>";
 	}
 
     if ( !(is_null($statement->size_room)) )
     {
         $text .=    "<div class='col-md-6'>
-                                Սենյակների քանակը - ".(int)$statement->size_room."
+                                <p class='set-center-padding'>Սենյակներ - ".(int)$statement->size_room."</p>
                             </div>";
     }
 
     if ( !(is_null($statement->kind_build)) )
     {
         $text .=    "<div class='col-md-6'>
-                                ".$statement->kind_build->kind_build."
+                                <p class='set-center-padding'>".$statement->kind_build->kind_build."</p>
                             </div>";
     }
 

@@ -74,7 +74,6 @@
 }
 
 #row-keyword > div{
-	height:  55px;
 	background-color: #424f95 !important; 
 	border:2px solid white;
 	color: white;
@@ -85,8 +84,8 @@
 }
 
 .testing{
-	width: 112px;
-    height: 112px;
+	width: 77px;
+    height: 77px;
     background-position: center;
     background-size: cover;
     margin: 0 5px 5px 0; 
@@ -96,6 +95,7 @@
 .container-fluid.image-gallery-custom{
 	padding: 0 0 0 15px;
 }
+
 #row-keyword > div{
 	text-align: center;	
 }
