@@ -32,7 +32,7 @@
 				</div>
 				<div class="card-body">
 					<h5 class="card-title p2-color"><?php echo cutString($statement->name,10) ?></h5>
-					<p class="card-text"><?php echo cutString($statement->description,10," ...") ?></p>
+					<!-- <p class="card-text"><?php echo cutString($statement->description,10," ...") ?></p> -->
 					<button type="button" class="btn bt-color1 btn-md statement-click" onclick='showStatement(<?php echo (int)$statement->id?>)'>Ավելին
 					</button>
 				</div>
