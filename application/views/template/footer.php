@@ -184,17 +184,6 @@
         });
 	}
 
-	// function getTopStatementModal(id){
-	// 	$.ajax({
- //            url: baseUrl+"main/showNewStatement/"+id,
-	// 	    dataType: 'json',
-	//         success: function(content) {
-	//         	$("#carouselExamples").append(content);
-	//         }
-	           
- //        });
-	// }
-	
 	$("#organization-click").click(function() {
 		$('input:radio[value=organisation]').prop('checked', true);
 	});
@@ -213,9 +202,11 @@
         		$("#content-all-statement").html(content);
         		$("#go-back").on('click',function(){
         			$("#content-all-statement").html(oldContent);
+					$('.pagination.pagination-circle').show();
         		});
 			}
 		});
+		$('.pagination.pagination-circle').hide();
 
 	}
 </script>

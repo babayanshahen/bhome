@@ -201,7 +201,7 @@
                                     <div class="input-group">
                                         <span class="input-group-addon">Հարկը</span>
                                         <select class="form-control" name="floor_all" required>
-                                            <option value="">Ընդհանուր հարկերի քանակ</option>
+                                            <option value="">Նշել շենքի հարկերի քանակ</option>
                                             <option value="1" <?php echo  selectOldValue(1,$EditStatementResult->floor_all) ?> >1</option>
                                             <option value="2" <?php echo  selectOldValue(2,$EditStatementResult->floor_all) ?> >2</option>
                                             <option value="3" <?php echo  selectOldValue(3,$EditStatementResult->floor_all) ?> >3</option>
@@ -234,7 +234,7 @@
                                             <option value="30" <?php echo selectOldValue(30,$EditStatementResult->floor_all) ?> >30 և ավել</option>
                                         </select>
                                         <select class="form-control" name="floor" required>
-                                            <option value="">Նշել հարկը</option>
+                                            <option value="">Նշել բնակարանի հարկը</option>
                                             <option value="1" <?php echo   selectOldValue(1,$EditStatementResult->floor) ?> >1</option>
                                             <option value="2" <?php echo   selectOldValue(2,$EditStatementResult->floor) ?> >2</option>
                                             <option value="3" <?php echo   selectOldValue(3,$EditStatementResult->floor) ?> >3</option>
